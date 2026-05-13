@@ -57,12 +57,12 @@
     padding: 16px;
     border: none;
     border-radius: 50px;
-    background: linear-gradient(135deg, var(--primary-red), #ff7e5f);
+    background: linear-gradient(135deg, #2f9e44, #60d394);
     color: white;
     font-weight: 600;
     font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(255, 60, 36, 0.25);
+    box-shadow: 0 10px 20px rgba(47, 158, 68, 0.25);
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -70,7 +70,7 @@
 
 .sign-in-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(255, 60, 36, 0.35);
+    box-shadow: 0 15px 30px rgba(47, 158, 68, 0.35);
 }
 
 .signup-link {
@@ -92,7 +92,7 @@
 
 .login-right {
     flex: 1.1;
-    background: linear-gradient(rgba(244, 48, 29, 0.55), rgba(180, 10, 10, 0.7)), url('../img/login.jpg');
+    background: url('../img/login.jpg');
     background-size: cover;
     background-position: center;
     display: flex;

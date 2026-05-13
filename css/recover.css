@@ -33,7 +33,7 @@ body {
 .panel-orange {
     right: 0;
     color: #fff;
-    background: linear-gradient(rgba(244, 48, 29, 0.55), rgba(180, 10, 10, 0.7)), url('../img/login.jpg');
+    background: url('../img/login.jpg');
     background-size: cover;
     background-position: center;
     z-index: 2;
