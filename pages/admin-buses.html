@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Flotilla | Tconecta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin-sucursales.css">
+</head>
+<body>
+<div class="shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <i class="fas fa-bus-alt" style="font-size: 24px; color: #8dc63f;"></i>
+            <h1>TCONECTA<br>ADMIN</h1>
+        </div>
+        <p class="menu-title">Panel Operativo</p>
+        <nav class="nav-links">
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+            <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+            <a class="active" href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
+        </nav>
+        <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
+    </aside>
+
+    <main class="content">
+        <header class="header">
+            <div>
+                <h2>Gestión de Flotilla (Buses)</h2>
+                <p>Administra unidades, placas y asignación a los diferentes sistemas.</p>
+            </div>
+            <!-- Cambiamos de btn danger a btn primary -->
+            <button class="btn primary" id="newBtn"><i class="fas fa-plus"></i> Nuevo Bus</button>
+        </header>
+        <section class="section">
+            <div class="top">
+                <p style="font-size:13px;color:#6f6f78">Control centralizado del parque vehicular.</p>
+            </div>
+            <section class="kpis">
+                <article class="kpi"><span>Total Buses</span><strong id="kpiTotal">0</strong></article>
+                <article class="kpi"><span>Transmetro</span><strong id="kpiTransmetro">0</strong></article>
+                <article class="kpi"><span>En Mantenimiento</span><strong id="kpiMantenimiento">0</strong></article>
+            </section>
+            <div class="grid" id="grid"></div>
+        </section>
+    </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <h2 id="title" style="font-size:18px;margin-bottom:10px;">Registrar Bus</h2>
+    
+    <div class="field">
+        <label>Código del Bus (Ej. TM-101)</label>
+        <input id="fCode" type="text" placeholder="TM-101">
+    </div>
+    
+    <div class="field">
+        <label>Placa Vehicular</label>
+        <input id="fPlate" type="text" placeholder="P-123ABC">
+    </div>
+    
+    <div class="field">
+        <label>Tipo de Servicio</label>
+        <select id="fService">
+            <option value="TRANSMETRO">Transmetro</option>
+            <option value="TRANSURBANO">Transurbano</option>
+            <option value="TUBUS">TuBus</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label>Estado Operativo</label>
+        <select id="fStatus">
+            <option value="ACTIVE">Activo</option>
+            <option value="MAINTENANCE">En mantenimiento</option>
+            <option value="INACTIVE">Inactivo</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <button class="btn soft" id="cancelBtn">Cancelar</button>
+        <button class="btn primary" id="saveBtn">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+// Mockup de datos basados en tu modelo 'Bus' de MongoDB
+const items =[
+ {id: 1, busCode: 'TM-101', plateNumber: 'P-123ABC', serviceType: 'TRANSMETRO', status: 'ACTIVE'},
+ {id: 2, busCode: 'TU-500', plateNumber: 'P-987XYZ', serviceType: 'TRANSURBANO', status: 'ACTIVE'},
+ {id: 3, busCode: 'TB-012', plateNumber: 'P-456DEF', serviceType: 'TUBUS', status: 'MAINTENANCE'}
+];
+
+let editId = null;
+const grid = document.getElementById('grid');
+const modal = document.getElementById('modal');
+const toastZone = document.getElementById('toastZone');
+const kpiTotal = document.getElementById('kpiTotal');
+const kpiTransmetro = document.getElementById('kpiTransmetro');
+const kpiMantenimiento = document.getElementById('kpiMantenimiento');
+
+function render(){
+    grid.innerHTML = '';
+    items.forEach(it => {
+        const d = document.createElement('article');
+        d.className = 'card';
+        // Determinar el color del badge de estado
+        let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko';
+        
+        d.innerHTML = `
+            <h3>${it.busCode}</h3>
+            <p style="margin-bottom: 4px;">Placa: <strong>${it.plateNumber}</strong></p>
+            <p>Servicio: ${it.serviceType}</p>
+            <span class='badge ${badgeClass}'>${it.status}</span>
+            <div class='actions'>
+                <button onclick='editItem(${it.id})'><i class="fas fa-pen"></i> Editar</button>
+            </div>
+        `;
+        grid.appendChild(d);
+    });
+    updateKpis();
+}
+
+function updateKpis(){
+    kpiTotal.textContent = items.length;
+    kpiTransmetro.textContent = items.filter(i => i.serviceType === 'TRANSMETRO').length;
+    kpiMantenimiento.textContent = items.filter(i => i.status === 'MAINTENANCE').length;
+}
+
+function showToast(message, type){
+    const t = document.createElement('div');
+    t.className = `toast ${type || ''}`.trim();
+    t.textContent = message;
+    toastZone.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => {
+        t.classList.remove('show');
+        setTimeout(() => t.remove(), 250);
+    }, 2500);
+}
+
+function openModal(item){
+    modal.classList.add('open');
+    document.getElementById('title').textContent = item ? 'Editar Bus' : 'Registrar Bus';
+    document.getElementById('fCode').value = item ? item.busCode : '';
+    document.getElementById('fPlate').value = item ? item.plateNumber : '';
+    document.getElementById('fService').value = item ? item.serviceType : 'TRANSMETRO';
+    document.getElementById('fStatus').value = item ? item.status : 'ACTIVE';
+}
+
+function editItem(id){
+    editId = id;
+    openModal(items.find(x => x.id === id));
+}
+
+document.getElementById('newBtn').onclick = () => { editId = null; openModal(); };
+document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
+
+document.getElementById('saveBtn').onclick = () => {
+    const busCode = document.getElementById('fCode').value.trim();
+    const plateNumber = document.getElementById('fPlate').value.trim();
+    const serviceType = document.getElementById('fService').value;
+    const status = document.getElementById('fStatus').value;
+    
+    if(!busCode || !plateNumber){
+        showToast('Completa código y placa', 'warn');
+        return;
+    }
+    
+    if(editId){
+        const it = items.find(x => x.id === editId);
+        it.busCode = busCode;
+        it.plateNumber = plateNumber;
+        it.serviceType = serviceType;
+        it.status = status;
+        showToast('Bus actualizado exitosamente', 'ok');
+    } else {
+        items.unshift({id: Date.now(), busCode, plateNumber, serviceType, status});
+        showToast('Bus registrado exitosamente', 'ok');
+    }
+    modal.classList.remove('open');
+    render();
+};
+
+modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); };
+render();
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Administrador | Gestor Restaurante</title>
+    <title>Dashboard Administrador | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -13,80 +13,80 @@
     <div class="shell">
         <aside class="sidebar">
             <div class="brand">
-                <i class="fas fa-utensils"></i>
-                <h1>GESTOR RESTAURANTE<br>ADMIN</h1>
+                <i class="fas fa-bus-alt" style="font-size: 24px; color: #8dc63f;"></i>
+                <h1>TCONECTA<br>ADMIN</h1>
             </div>
 
-            <p class="menu-title">Panel</p>
+            <p class="menu-title">Panel Operativo</p>
             <nav class="nav-links">
                 <a class="active" href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
-                <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
-                <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
-                <a href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
-                <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+                <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+                <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+                <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+                <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
             </nav>
 
-            <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+            <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
         </aside>
 
         <main class="content">
             <header class="topbar">
                 <div>
-                    <h2>Dashboard de Administrador</h2>
-                    <p>Gestiona usuarios, permisos y estructura operativa del restaurante.</p>
+                    <h2>Dashboard Operativo</h2>
+                    <p>Gestiona estaciones, rutas, buses y alertas de la red de transporte público.</p>
                 </div>
                 <div class="chips">
-                    <span class="chip">Ambiente: Produccion</span>
-                    <span class="chip">Ultima actividad: Hoy 10:40</span>
+                    <span class="chip">Ambiente: Producción</span>
+                    <span class="chip">Última actividad: Hoy 10:40</span>
                 </div>
             </header>
 
             <section class="stats">
                 <article class="stat-card">
-                    <span>Admins activos</span>
-                    <strong>12</strong>
+                    <span>Estaciones Activas</span>
+                    <strong>124</strong>
                 </article>
                 <article class="stat-card">
-                    <span>Roles creados</span>
-                    <strong>6</strong>
+                    <span>Rutas Operativas</span>
+                    <strong>18</strong>
                 </article>
                 <article class="stat-card">
-                    <span>Sucursales</span>
-                    <strong>4</strong>
+                    <span>Buses en Servicio</span>
+                    <strong>342</strong>
                 </article>
                 <article class="stat-card">
-                    <span>Alertas abiertas</span>
+                    <span>Alertas Abiertas</span>
                     <strong>3</strong>
                 </article>
             </section>
 
             <section class="views">
                 <article class="view-card">
-                    <i class="fas fa-user-shield"></i>
-                    <h3>CRUD de Administradores</h3>
-                    <p>Crea, edita, activa o elimina cuentas administrativas con control por estado y rol.</p>
-                    <a href="admin-usuarios.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                    <i class="fas fa-map-marker-alt" style="color: var(--accent-blue);"></i>
+                    <h3>Gestión de Estaciones</h3>
+                    <p>Administra la ubicación, tipo (Centrales, Trasbordo, Terminales) y estado de todas las paradas.</p>
+                    <a href="admin-estaciones.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
 
                 <article class="view-card">
-                    <i class="fas fa-key"></i>
-                    <h3>CRUD de Roles y Permisos</h3>
-                    <p>Define niveles de acceso para cada administrador y controla permisos criticos.</p>
-                    <a href="admin-roles.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                    <i class="fas fa-route" style="color: var(--accent-blue);"></i>
+                    <h3>Gestión de Rutas</h3>
+                    <p>Configura trayectos, asigna estaciones en orden y define el tipo de servicio (Express, Centrales).</p>
+                    <a href="admin-rutas.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
 
                 <article class="view-card">
-                    <i class="fas fa-store"></i>
-                    <h3>CRUD de Sucursales</h3>
-                    <p>Administra sedes, encargado principal y estado operativo de cada restaurante.</p>
-                    <a href="admin-sucursales.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                    <i class="fas fa-bus" style="color: var(--accent-blue);"></i>
+                    <h3>Control de Flotilla (Buses)</h3>
+                    <p>Registra unidades, placas y vincula cada bus a las líneas de Transmetro, Transurbano o TuBus.</p>
+                    <a href="admin-buses.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
 
                 <article class="view-card">
-                    <i class="fas fa-sliders-h"></i>
-                    <h3>Configuracion General</h3>
-                    <p>Actualiza parametros administrativos: politicas, respaldo y notificaciones del sistema.</p>
-                    <a href="admin-configuracion.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                    <i class="fas fa-exclamation-triangle" style="color: #f5a623;"></i>
+                    <h3>Panel de Alertas</h3>
+                    <p>Publica incidentes, mantenimientos o bloqueos para notificar en tiempo real a los usuarios.</p>
+                    <a href="admin-alertas.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
             </section>
         </main>
