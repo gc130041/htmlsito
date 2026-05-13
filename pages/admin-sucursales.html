@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Sucursales</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin-sucursales.css">
+</head>
+<body>
+<div class="shell">
+    <aside class="sidebar">
+        <div class="brand"><i class="fas fa-utensils"></i><h1>GESTOR RESTAURANTE<br>ADMIN</h1></div>
+        <p class="menu-title">Panel</p>
+        <nav class="nav-links">
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+            <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+            <a class="active" href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
+            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+        </nav>
+        <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+    </aside>
+
+    <main class="content">
+        <header class="header">
+            <div>
+                <h2>CRUD de Sucursales</h2>
+                <p>Administra sedes, responsable y estado operativo.</p>
+            </div>
+            <button class="btn danger" id="newBtn">Nueva sucursal</button>
+        </header>
+        <section class="section">
+            <div class="top">
+                <p style="font-size:13px;color:#6f6f78">Gestion centralizada de sedes del restaurante.</p>
+            </div>
+            <section class="kpis">
+                <article class="kpi"><span>Total sucursales</span><strong id="kpiTotal">0</strong></article>
+                <article class="kpi"><span>Operativas</span><strong id="kpiOperativas">0</strong></article>
+                <article class="kpi"><span>En mantenimiento</span><strong id="kpiMantenimiento">0</strong></article>
+            </section>
+            <div class="grid" id="grid"></div>
+        </section>
+    </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <h2 id="title" style="font-size:18px;margin-bottom:10px;">Nueva sucursal</h2>
+    <div class="field"><label>Nombre</label><input id="fNombre"></div>
+    <div class="field"><label>Ciudad</label><input id="fCiudad"></div>
+    <div class="field"><label>Estado</label><select id="fEstado"><option>Operativa</option><option>En mantenimiento</option></select></div>
+    <div class="row"><button class="btn soft" id="cancelBtn">Cancelar</button><button class="btn danger" id="saveBtn">Guardar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="confirmModal">
+    <div class="modal-card">
+        <h2 style="font-size:18px;margin-bottom:10px;">Eliminar sucursal</h2>
+        <p class="confirm-text">La sucursal seleccionada sera eliminada. ¿Deseas continuar?</p>
+        <div class="row"><button class="btn soft" id="confirmCancelBtn">Cancelar</button><button class="btn danger" id="confirmOkBtn">Eliminar</button></div>
+    </div>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+const items=[
+ {id:1,nombre:'Centro',ciudad:'Bogota',estado:'Operativa'},
+ {id:2,nombre:'Norte',ciudad:'Medellin',estado:'Operativa'},
+ {id:3,nombre:'Sur',ciudad:'Cali',estado:'En mantenimiento'}
+];
+let editId=null;
+let pendingDeleteId=null;
+const grid=document.getElementById('grid');
+const modal=document.getElementById('modal');
+const confirmModal=document.getElementById('confirmModal');
+const toastZone=document.getElementById('toastZone');
+const kpiTotal=document.getElementById('kpiTotal');
+const kpiOperativas=document.getElementById('kpiOperativas');
+const kpiMantenimiento=document.getElementById('kpiMantenimiento');
+function render(){
+ grid.innerHTML='';
+ items.forEach(it=>{const d=document.createElement('article');d.className='card';d.innerHTML=`<h3>${it.nombre}</h3><p>${it.ciudad}</p><span class='badge ${it.estado==='Operativa'?'ok':'ko'}'>${it.estado}</span><div class='actions'><button onclick='editItem(${it.id})'>Editar</button><button onclick='deleteItem(${it.id})'>Eliminar</button></div>`;grid.appendChild(d);});
+ updateKpis();
+}
+function updateKpis(){
+ kpiTotal.textContent=items.length;
+ kpiOperativas.textContent=items.filter(i=>i.estado==='Operativa').length;
+ kpiMantenimiento.textContent=items.filter(i=>i.estado!=='Operativa').length;
+}
+function showToast(message,type){
+ const t=document.createElement('div');
+ t.className=`toast ${type||''}`.trim();
+ t.textContent=message;
+ toastZone.appendChild(t);
+ requestAnimationFrame(()=>t.classList.add('show'));
+ setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250);},2200);
+}
+function openModal(item){modal.classList.add('open');document.getElementById('title').textContent=item?'Editar sucursal':'Nueva sucursal';document.getElementById('fNombre').value=item?item.nombre:'';document.getElementById('fCiudad').value=item?item.ciudad:'';document.getElementById('fEstado').value=item?item.estado:'Operativa';}
+function editItem(id){editId=id;openModal(items.find(x=>x.id===id));}
+function deleteItem(id){pendingDeleteId=id;confirmModal.classList.add('open');}
+function closeConfirm(){confirmModal.classList.remove('open');pendingDeleteId=null;}
+document.getElementById('newBtn').onclick=()=>{editId=null;openModal();};
+document.getElementById('cancelBtn').onclick=()=>modal.classList.remove('open');
+document.getElementById('saveBtn').onclick=()=>{const nombre=document.getElementById('fNombre').value.trim();const ciudad=document.getElementById('fCiudad').value.trim();const estado=document.getElementById('fEstado').value;if(!nombre||!ciudad){showToast('Completa nombre y ciudad','warn');return;}if(editId){const it=items.find(x=>x.id===editId);it.nombre=nombre;it.ciudad=ciudad;it.estado=estado;showToast('Sucursal actualizada','ok');}else{items.push({id:Date.now(),nombre,ciudad,estado});showToast('Sucursal creada','ok');}modal.classList.remove('open');render();};
+document.getElementById('confirmCancelBtn').onclick=closeConfirm;
+document.getElementById('confirmOkBtn').onclick=()=>{if(pendingDeleteId===null)return;const i=items.findIndex(x=>x.id===pendingDeleteId);if(i>-1){items.splice(i,1);showToast('Sucursal eliminada','warn');}closeConfirm();render();};
+modal.onclick=(e)=>{if(e.target===modal)modal.classList.remove('open');};
+confirmModal.onclick=(e)=>{if(e.target===confirmModal)closeConfirm();};
+render();
+</script>
+</body>
+</html>

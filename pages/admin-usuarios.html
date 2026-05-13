@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Administradores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin-usuarios.css">
+</head>
+<body>
+<div class="shell">
+    <aside class="sidebar">
+        <div class="brand"><i class="fas fa-utensils"></i><h1>GESTOR RESTAURANTE<br>ADMIN</h1></div>
+        <p class="menu-title">Panel</p>
+        <nav class="nav-links">
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a class="active" href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+            <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+            <a href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
+            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+        </nav>
+        <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+    </aside>
+
+    <main class="content">
+        <header class="top">
+            <div class="title">
+                <h2>CRUD de Administradores</h2>
+                <p>Crea, edita, busca y elimina cuentas administrativas.</p>
+            </div>
+            <button class="btn btn-danger"><i class="fas fa-plus"></i> Nuevo admin</button>
+        </header>
+        <section class="body">
+            <div class="toolbar">
+                <input class="search" placeholder="Buscar por nombre o correo">
+            </div>
+            <section class="kpis">
+                <article class="kpi"><span>Total admins</span><strong>12</strong></article>
+                <article class="kpi"><span>Activos</span><strong>9</strong></article>
+                <article class="kpi"><span>Inactivos</span><strong>3</strong></article>
+            </section>
+            <table>
+                <thead>
+                    <tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Carla Ruiz</td>
+                        <td>carla@resto.com</td>
+                        <td>Super Admin</td>
+                        <td><span class="status on">Activo</span></td>
+                        <td>
+                            <div class="row-actions">
+                                <button><i class="fas fa-pen"></i></button>
+                                <button><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Miguel Soto</td>
+                        <td>miguel@resto.com</td>
+                        <td>Operacion</td>
+                        <td><span class="status on">Activo</span></td>
+                        <td>
+                            <div class="row-actions">
+                                <button><i class="fas fa-pen"></i></button>
+                                <button><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ana Perez</td>
+                        <td>ana@resto.com</td>
+                        <td>Auditor</td>
+                        <td><span class="status off">Inactivo</span></td>
+                        <td>
+                            <div class="row-actions">
+                                <button><i class="fas fa-pen"></i></button>
+                                <button><i class="fas fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>

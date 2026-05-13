@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Roles y Permisos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin-roles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand"><i class="fas fa-utensils"></i><h1>GESTOR RESTAURANTE<br>ADMIN</h1></div>
+    <p class="menu-title">Panel</p>
+    <nav class="nav-links">
+      <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+      <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+      <a class="active" href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+      <a href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
+      <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+    </nav>
+    <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+  </aside>
+
+  <main class="content">
+    <header class="head">
+      <div>
+        <h2>CRUD de Roles y Permisos</h2>
+        <p>Define y controla permisos de cada perfil administrativo.</p>
+      </div>
+      <button class="btn primary" id="newBtn">Nuevo rol</button>
+    </header>
+    <div class="body">
+      <div class="top">
+        <p style="font-size:13px;color:#6f6f78">Gestion centralizada de roles para administradores.</p>
+      </div>
+      <section class="kpis">
+        <article class="kpi"><span>Total roles</span><strong id="kpiTotal">0</strong></article>
+        <article class="kpi"><span>Roles criticos</span><strong id="kpiCriticos">0</strong></article>
+        <article class="kpi"><span>Roles operativos</span><strong id="kpiOperativos">0</strong></article>
+      </section>
+      <table>
+        <thead><tr><th>Rol</th><th>Descripcion</th><th>Acciones</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="card">
+    <h2 id="title" style="margin-bottom:10px;font-size:18px;">Nuevo rol</h2>
+    <div class="field"><label>Nombre del rol</label><input id="fNombre"></div>
+    <div class="field"><label>Descripcion</label><textarea id="fDesc"></textarea></div>
+    <div class="row"><button class="btn light" id="cancelBtn">Cancelar</button><button class="btn primary" id="saveBtn">Guardar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="confirmModal">
+  <div class="card">
+    <h2 style="margin-bottom:10px;font-size:18px;">Eliminar rol</h2>
+    <p class="confirm-text">Este rol se eliminara de la lista administrativa. ¿Deseas continuar?</p>
+    <div class="row"><button class="btn light" id="confirmCancelBtn">Cancelar</button><button class="btn primary" id="confirmOkBtn">Eliminar</button></div>
+  </div>
+</div>
+
+<div class="toast-zone" id="toastZone"></div>
+
+<script>
+const rows=[
+ {id:1,nombre:'Super Admin',desc:'Control total del sistema y usuarios.'},
+ {id:2,nombre:'Operacion',desc:'Gestion diaria de flujo operativo.'},
+ {id:3,nombre:'Auditor',desc:'Consulta de datos y reportes sin edicion.'}
+];
+let edit=null;
+let pendingDeleteId=null;
+const tbody=document.getElementById('tbody');
+const modal=document.getElementById('modal');
+const confirmModal=document.getElementById('confirmModal');
+const toastZone=document.getElementById('toastZone');
+const kpiTotal=document.getElementById('kpiTotal');
+const kpiCriticos=document.getElementById('kpiCriticos');
+const kpiOperativos=document.getElementById('kpiOperativos');
+function draw(){
+ tbody.innerHTML='';
+ rows.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=`<td><strong>${r.nombre}</strong></td><td><small>${r.desc}</small></td><td class='actions'><button onclick='editRow(${r.id})'>Editar</button><button onclick='delRow(${r.id})'>Eliminar</button></td>`;tbody.appendChild(tr);});
+ updateKpis();
+}
+function updateKpis(){
+ kpiTotal.textContent=rows.length;
+ kpiCriticos.textContent=rows.filter(r=>/super|admin/i.test(r.nombre)).length;
+ kpiOperativos.textContent=rows.filter(r=>/oper|audit/i.test(r.nombre)).length;
+}
+function showToast(message,type){
+ const t=document.createElement('div');
+ t.className=`toast ${type||''}`.trim();
+ t.textContent=message;
+ toastZone.appendChild(t);
+ requestAnimationFrame(()=>t.classList.add('show'));
+ setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250);},2200);
+}
+function openM(item){modal.classList.add('open');document.getElementById('title').textContent=item?'Editar rol':'Nuevo rol';document.getElementById('fNombre').value=item?item.nombre:'';document.getElementById('fDesc').value=item?item.desc:'';}
+function editRow(id){edit=id;openM(rows.find(x=>x.id===id));}
+function delRow(id){pendingDeleteId=id;confirmModal.classList.add('open');}
+function closeConfirm(){confirmModal.classList.remove('open');pendingDeleteId=null;}
+document.getElementById('newBtn').onclick=()=>{edit=null;openM();};
+document.getElementById('cancelBtn').onclick=()=>modal.classList.remove('open');
+document.getElementById('saveBtn').onclick=()=>{const n=document.getElementById('fNombre').value.trim();const d=document.getElementById('fDesc').value.trim();if(!n||!d){showToast('Completa los campos','warn');return;}if(edit){const x=rows.find(v=>v.id===edit);x.nombre=n;x.desc=d;showToast('Rol actualizado','ok');}else{rows.push({id:Date.now(),nombre:n,desc:d});showToast('Rol creado','ok');}modal.classList.remove('open');draw();};
+document.getElementById('confirmCancelBtn').onclick=closeConfirm;
+document.getElementById('confirmOkBtn').onclick=()=>{if(pendingDeleteId===null)return;const i=rows.findIndex(x=>x.id===pendingDeleteId);if(i>-1){rows.splice(i,1);showToast('Rol eliminado','warn');}closeConfirm();draw();};
+modal.onclick=(e)=>{if(e.target===modal)modal.classList.remove('open');};
+confirmModal.onclick=(e)=>{if(e.target===confirmModal)closeConfirm();};
+draw();
+</script>
+</body>
+</html>

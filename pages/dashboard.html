@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrador | Gestor Restaurante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard-home.css">
+</head>
+<body>
+    <div class="shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fas fa-utensils"></i>
+                <h1>GESTOR RESTAURANTE<br>ADMIN</h1>
+            </div>
+
+            <p class="menu-title">Panel</p>
+            <nav class="nav-links">
+                <a class="active" href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+                <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+                <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+                <a href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
+                <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+            </nav>
+
+            <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+        </aside>
+
+        <main class="content">
+            <header class="topbar">
+                <div>
+                    <h2>Dashboard de Administrador</h2>
+                    <p>Gestiona usuarios, permisos y estructura operativa del restaurante.</p>
+                </div>
+                <div class="chips">
+                    <span class="chip">Ambiente: Produccion</span>
+                    <span class="chip">Ultima actividad: Hoy 10:40</span>
+                </div>
+            </header>
+
+            <section class="stats">
+                <article class="stat-card">
+                    <span>Admins activos</span>
+                    <strong>12</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Roles creados</span>
+                    <strong>6</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Sucursales</span>
+                    <strong>4</strong>
+                </article>
+                <article class="stat-card">
+                    <span>Alertas abiertas</span>
+                    <strong>3</strong>
+                </article>
+            </section>
+
+            <section class="views">
+                <article class="view-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>CRUD de Administradores</h3>
+                    <p>Crea, edita, activa o elimina cuentas administrativas con control por estado y rol.</p>
+                    <a href="admin-usuarios.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="view-card">
+                    <i class="fas fa-key"></i>
+                    <h3>CRUD de Roles y Permisos</h3>
+                    <p>Define niveles de acceso para cada administrador y controla permisos criticos.</p>
+                    <a href="admin-roles.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="view-card">
+                    <i class="fas fa-store"></i>
+                    <h3>CRUD de Sucursales</h3>
+                    <p>Administra sedes, encargado principal y estado operativo de cada restaurante.</p>
+                    <a href="admin-sucursales.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                </article>
+
+                <article class="view-card">
+                    <i class="fas fa-sliders-h"></i>
+                    <h3>Configuracion General</h3>
+                    <p>Actualiza parametros administrativos: politicas, respaldo y notificaciones del sistema.</p>
+                    <a href="admin-configuracion.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+.login-card {
+    background: var(--white);
+    width: 950px;
+    height: 600px;
+    display: flex;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+}
+
+.login-left {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.subtitle {
+    margin-bottom: 35px;
+    max-width: 300px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    padding: 16px 16px 16px 55px;
+}
+
+.forgot-pass {
+    display: block;
+    text-align: right;
+    width: 100%;
+    margin-top: -12px;
+    margin-bottom: 25px;
+    padding-right: 15px;
+}
+
+.forgot-pass a {
+    font-size: 12px;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 400;
+}
+
+.forgot-pass a:hover {
+    color: var(--primary-red);
+}
+
+.sign-in-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary-red), #ff7e5f);
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 60, 36, 0.25);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sign-in-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(255, 60, 36, 0.35);
+}
+
+.signup-link {
+    font-size: 13px;
+    margin-top: 30px;
+    color: var(--text-gray);
+}
+
+.signup-link a {
+    color: var(--primary-red);
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.login-right {
+    flex: 1.1;
+    background: linear-gradient(rgba(244, 48, 29, 0.55), rgba(180, 10, 10, 0.7)), url('../img/login.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    color: white;
+    text-align: center;
+}
+
+@media (max-width: 850px) {
+    .login-card {
+        width: 95%;
+        flex-direction: column;
+        height: auto;
+        margin: 20px;
+    }
+
+    .login-right {
+        display: none;
+    }
+
+    .login-left {
+        padding: 56px 24px;
+    }
+
+    .subtitle {
+        max-width: 100%;
+    }
+}

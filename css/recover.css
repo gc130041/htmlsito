@@ -1,0 +1,114 @@
+body {
+    padding: 20px;
+}
+
+.recover-card {
+    position: relative;
+    width: 950px;
+    height: 600px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+    background: var(--white);
+}
+
+.panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    text-align: center;
+}
+
+.panel-white {
+    left: 0;
+    background: var(--white);
+    z-index: 3;
+}
+
+.panel-orange {
+    right: 0;
+    color: #fff;
+    background: linear-gradient(rgba(244, 48, 29, 0.55), rgba(180, 10, 10, 0.7)), url('../img/login.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: 2;
+}
+
+.white-content {
+    width: 100%;
+    max-width: 330px;
+}
+
+.subtitle {
+    margin-bottom: 28px;
+}
+
+.action-btn {
+    width: 100%;
+}
+
+.back-link {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-gray);
+}
+
+.back-link a {
+    color: var(--primary-red);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+.orange-content i {
+    font-size: 56px;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+}
+
+.orange-content h2 {
+    font-size: 34px;
+    letter-spacing: 5px;
+    margin-bottom: 18px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.orange-content p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.85;
+    max-width: 320px;
+    opacity: 0.95;
+}
+
+@media (max-width: 900px) {
+    .recover-card {
+        width: 95%;
+        height: auto;
+    }
+
+    .panel {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        transform: none;
+    }
+
+    .panel-orange {
+        display: none;
+    }
+
+    .panel-white {
+        padding: 56px 24px;
+    }
+}
