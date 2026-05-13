@@ -1,195 +1,192 @@
 :root {
-    --primary-red: #ff3c24;
-    --primary-orange: #ff5e3a;
-    --text-gray: #777;
-    --text-light: #aaa;
-    --light-gray: #e8e8e8;
-    --white: #ffffff;
+--primary-blue: #004b93;
+--primary-green: #8dc63f;
+--secondary-blue: #0076c0;
+--text-gray: #777;
+--text-light: #aaa;
+--light-gray: #e8e8e8;
+--white: #ffffff;
 }
 
-* {
+    *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
+    }
 
 body {
-    background-image: url('../img/fondo.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+background: url('../img/fondo.png');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
 }
 
 .welcome-text {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-light);
-    letter-spacing: 2px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+font-size: 11px;
+font-weight: 600;
+color: var(--text-light);
+letter-spacing: 2px;
+margin-bottom: 5px;
+text-transform: uppercase;
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.logo-container i {
-    font-size: 32px;
-    background: linear-gradient(to bottom, var(--primary-red), var(--primary-orange));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 20px;
 }
 
 .logo-container span {
-    font-size: 25px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    color: var(--primary-red);
-    white-space: nowrap;
+font-size: 25px;
+font-weight: 600;
+letter-spacing: 1.5px;
+color: var(--primary-blue);
+white-space: nowrap;
 }
 
 .subtitle {
-    color: var(--text-gray);
-    font-size: 13px;
-    line-height: 1.6;
+color: var(--text-gray);
+font-size: 13px;
+line-height: 1.6;
 }
 
 form {
-    width: 100%;
-    max-width: 330px;
+width: 100%;
+max-width: 330px;
 }
 
 .input-group {
-    width: 100%;
-    position: relative;
-    margin-bottom: 18px;
+width: 100%;
+position: relative;
+margin-bottom: 18px;
 }
 
 .input-group i {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ccc;
-    transition: 0.3s;
+position: absolute;
+left: 20px;
+top: 50%;
+transform: translateY(-50%);
+color: #ccc;
+transition: 0.3s;
 }
 
 .input-group input,
 .input-group select {
-    width: 100%;
-    padding: 14px 16px 14px 55px;
-    border: 1px solid var(--light-gray);
-    border-radius: 50px;
-    outline: none;
-    font-size: 14px;
-    background: #f9f9f9;
-    transition: all 0.3s ease;
-    appearance: none;
+width: 100%;
+padding: 14px 16px 14px 55px;
+border: 1px solid var(--light-gray);
+border-radius: 50px;
+outline: none;
+font-size: 14px;
+background: #f9f9f9;
+transition: all 0.3s ease;
+appearance: none;
 }
 
 .input-group input:focus,
 .input-group select:focus {
-    background: #fff;
-    border-color: var(--primary-red);
-    box-shadow: 0 0 10px rgba(255, 60, 36, 0.1);
+background: #fff;
+border-color: var(--primary-blue);
+box-shadow: 0 0 10px rgba(0, 75, 147, 0.1);
 }
 
 .input-group input:focus + i,
 .input-group select:focus + i {
-    color: var(--primary-red);
+color: var(--primary-blue);
 }
 
 .auth-btn {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(135deg, #ff7a1a, var(--primary-orange));
-    color: white;
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(255, 122, 26, 0.28);
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+width: 100%;
+padding: 16px;
+border: none;
+border-radius: 50px;
+background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+color: white;
+font-weight: 600;
+font-size: 15px;
+cursor: pointer;
+box-shadow: 0 10px 20px rgba(0, 75, 147, 0.28);
+transition: all 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 1px;
 }
 
 .auth-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(255, 122, 26, 0.38);
+transform: translateY(-3px);
+box-shadow: 0 15px 30px rgba(0, 75, 147, 0.38);
 }
 
 .auth-btn:active {
-    transform: translateY(1px) scale(0.995);
-    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.12), 0 6px 14px rgba(255, 122, 26, 0.28);
+transform: translateY(1px) scale(0.995);
+box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.12), 0 6px 14px rgba(0, 75, 147, 0.28);
 }
 
 .panel-right {
-    flex: 1.1;
-    background: url('../img/login.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px;
-    color: white;
-    text-align: center;
+flex: 1.1;
+background: url('../img/login.jpg');
+background-size: cover;
+background-position: center;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 60px;
+color: white;
+text-align: center;
+z-index: 1;
+}
+
+.panel-right::before {
+content: '';
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, rgba(0, 75, 147, 0.85), rgba(141, 198, 63, 0.85));
+z-index: -1;
+}
+
+.relative-content {
+position: relative;
+z-index: 2;
 }
 
 .right-logo {
-    margin-bottom: 25px;
-}
-
-.right-logo i {
-    font-size: 55px;
-    display: block;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+margin-bottom: 25px;
 }
 
 .right-logo span {
-    font-size: 34px;
-    font-weight: 600;
-    letter-spacing: 6px;
-    display: block;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+font-size: 34px;
+font-weight: 600;
+letter-spacing: 6px;
+display: block;
+text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .right-content p {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.85;
-    opacity: 0.92;
-    max-width: 360px;
+font-size: 14px;
+font-weight: 300;
+line-height: 1.85;
+opacity: 0.92;
+max-width: 360px;
 }
 
 @media (max-width: 900px) {
-    .logo-container {
-        flex-direction: column;
-        gap: 6px;
-    }
+.logo-container {
+flex-direction: column;
+gap: 6px;
+}
 
-    .logo-container i {
-        font-size: 26px;
-    }
+.logo-container span {
+    font-size: 22px;
+    letter-spacing: 1px;
+    white-space: normal;
+    line-height: 1.2;
+    text-align: center;
+}
 
-    .logo-container span {
-        font-size: 22px;
-        letter-spacing: 1px;
-        white-space: normal;
-        line-height: 1.2;
-        text-align: center;
-    }
 }

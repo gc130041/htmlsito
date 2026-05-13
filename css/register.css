@@ -1,73 +1,98 @@
 .register-card {
-    background: var(--white);
-    width: 950px;
-    min-height: 600px;
-    display: flex;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+background: var(--white);
+width: 950px;
+min-height: 600px;
+display: flex;
+border-radius: 24px;
+overflow: hidden;
+box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
 }
 
 .register-left {
-    flex: 1;
-    padding: 40px 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+flex: 1;
+padding: 40px 60px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
 }
 
 .subtitle {
-    margin-bottom: 24px;
-    max-width: 320px;
+margin-bottom: 24px;
+max-width: 320px;
 }
 
 .input-group {
-    margin-bottom: 14px;
+margin-bottom: 14px;
 }
 
 .register-btn {
-    margin-top: 8px;
+margin-top: 8px;
 }
 
 .signin-link {
-    font-size: 13px;
-    margin-top: 20px;
-    color: var(--text-gray);
+font-size: 13px;
+margin-top: 20px;
+color: var(--text-gray);
 }
 
 .signin-link a {
-    color: var(--primary-red);
-    text-decoration: none;
-    font-weight: 600;
-    margin-left: 5px;
+color: var(--primary-blue);
+text-decoration: none;
+font-weight: 600;
+margin-left: 5px;
 }
 
 .signin-link a:hover {
-    text-decoration: underline;
+text-decoration: underline;
 }
 
 .register-right {
-    flex: 1.1;
+flex: 1.1;
+background: url('../img/login.jpg');
+background-size: cover;
+background-position: center;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 60px;
+color: white;
+text-align: center;
+z-index: 1;
+}
+
+.register-right::before {
+content: '';
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, rgba(0, 75, 147, 0.85), rgba(141, 198, 63, 0.85));
+z-index: -1;
+}
+
+.register-right .right-content {
+position: relative;
+z-index: 1;
 }
 
 @media (max-width: 900px) {
-    .register-card {
-        width: 95%;
-        min-height: auto;
-        flex-direction: column;
-    }
+.register-card {
+width: 95%;
+min-height: auto;
+flex-direction: column;
+}
 
-    .register-right {
-        display: none;
-    }
+.register-right {
+    display: none;
+}
 
-    .register-left {
-        padding: 56px 24px;
-    }
+.register-left {
+    padding: 56px 24px;
+}
 
-    .subtitle {
-        max-width: 100%;
-    }
+.subtitle {
+    max-width: 100%;
+}
+
 }

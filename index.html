@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Restaurante | Acceso</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/auth.css">
-    <link rel="stylesheet" href="css/login.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tconecta | Acceso</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="login-card">
-        <div class="login-left">
-            <span class="welcome-text">Bienvenido al</span>
-            <div class="logo-container">
-                <i class="fas fa-utensils"></i>
-                <span>GESTOR RESTAURANTE</span>
+<div class="login-card">
+<div class="login-left">
+<span class="welcome-text">Bienvenido a</span>
+<div class="logo-container">
+<img src="img/logo.png" alt="Tconecta Logo" style="height: 45px;">
+<span>TCONECTA</span>
+</div>
+<p class="subtitle">Inicia sesión para administrar estaciones, rutas y alertas de tu red de transporte público desde un solo panel.</p>
+
+        <form action="#">
+            <div class="input-group">
+                <i class="far fa-user"></i>
+                <input type="text" placeholder="Usuario o correo" required>
             </div>
 
-            <p class="subtitle">Inicia sesión para administrar reservas, pedidos, inventario y personal de tu restaurante desde un solo panel.</p>
-
-            <form action="#">
-                <div class="input-group">
-                    <i class="far fa-user"></i>
-                    <input type="text" placeholder="Usuario o correo" required>
-                </div>
-
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Contraseña" required>
-                </div>
-
-                <div class="forgot-pass">
-                    <a href="recuperarContraseña.html">¿Olvidaste tu contraseña?</a>
-                </div>
-
-                <button type="submit" class="sign-in-btn">Iniciar Sesión</button>
-            </form>
-
-            <p class="signup-link">
-                ¿No tienes acceso? <a href="registrarme.html">Registrarme</a>
-            </p>
-        </div>
-
-        <div class="login-right">
-            <div class="right-content">
-                <div class="right-logo">
-                    <i class="fas fa-utensils"></i>
-                    <span>GESTOR RESTAURANTE</span>
-                </div>
-                <p>Controla en tiempo real las mesas, turnos, comandas, costos e inventario. Toma decisiones mas rapidas con reportes claros y mantén tu operación siempre en marcha.</p>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Contraseña" required>
             </div>
+
+            <div class="forgot-pass">
+                <a href="pages/recuperarContraseña.html">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="sign-in-btn auth-btn">Iniciar Sesión</button>
+        </form>
+
+        <p class="signup-link">
+            ¿No tienes acceso? <a href="pages/registrarme.html">Registrarme</a>
+        </p>
+    </div>
+
+    <div class="login-right panel-right">
+        <div class="right-content relative-content">
+            <div class="right-logo">
+                <img src="img/logo.png" alt="Tconecta" style="height: 80px; margin-bottom: 20px;">
+                <span>TCONECTA ADMIN</span>
+            </div>
+            <p>Controla en tiempo real las estaciones, trayectos y alertas operativas. Toma decisiones más rápidas con reportes claros y mantén tu operación siempre en marcha.</p>
         </div>
     </div>
+</div>
 </body>
 </html>
