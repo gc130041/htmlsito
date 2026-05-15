@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Administradores</title>
+    <title>CRUD Administradores | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -12,16 +12,22 @@
 <body>
 <div class="shell">
     <aside class="sidebar">
-        <div class="brand"><i class="fas fa-utensils"></i><h1>GESTOR RESTAURANTE<br>ADMIN</h1></div>
-        <p class="menu-title">Panel</p>
+        <div class="brand">
+            <i class="fas fa-bus-alt"></i>
+            <h1>TCONECTA<br>ADMIN</h1>
+        </div>
+        <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
             <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+            <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+            <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
             <a class="active" href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
             <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
-            <a href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
-            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
         </nav>
-        <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+        <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
     </aside>
 
     <main class="content">
@@ -48,7 +54,7 @@
                 <tbody>
                     <tr>
                         <td>Carla Ruiz</td>
-                        <td>carla@resto.com</td>
+                        <td>carla@tconecta.com</td>
                         <td>Super Admin</td>
                         <td><span class="status on">Activo</span></td>
                         <td>
@@ -60,8 +66,8 @@
                     </tr>
                     <tr>
                         <td>Miguel Soto</td>
-                        <td>miguel@resto.com</td>
-                        <td>Operacion</td>
+                        <td>miguel@tconecta.com</td>
+                        <td>Operación</td>
                         <td><span class="status on">Activo</span></td>
                         <td>
                             <div class="row-actions">
@@ -72,7 +78,7 @@
                     </tr>
                     <tr>
                         <td>Ana Perez</td>
-                        <td>ana@resto.com</td>
+                        <td>ana@tconecta.com</td>
                         <td>Auditor</td>
                         <td><span class="status off">Inactivo</span></td>
                         <td>

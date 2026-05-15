@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuracion Admin</title>
+    <title>Configuración Admin | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -12,50 +12,56 @@
 <body>
 <div class="shell">
     <aside class="sidebar">
-        <div class="brand"><i class="fas fa-utensils"></i><h1>GESTOR RESTAURANTE<br>ADMIN</h1></div>
-        <p class="menu-title">Panel</p>
+        <div class="brand">
+            <i class="fas fa-bus-alt"></i>
+            <h1>TCONECTA<br>ADMIN</h1>
+        </div>
+        <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
             <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+            <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+            <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
             <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
             <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
-            <a href="admin-sucursales.html"><i class="fas fa-store"></i> Sucursales</a>
-            <a class="active" href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuracion</a>
+            <a class="active" href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
         </nav>
-        <a class="logout" href="index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesion</a>
+        <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
     </aside>
 
     <main class="content-shell">
         <header class="head">
             <div>
-                <h2>Configuracion General</h2>
-                <p>Control de parametros administrativos del sistema.</p>
+                <h2>Configuración General</h2>
+                <p>Control de parámetros administrativos del sistema.</p>
             </div>
-            <button class="btn danger" onclick="alert('Configuracion guardada')">Guardar cambios</button>
+            <button class="btn danger" onclick="alert('Configuración guardada')">Guardar cambios</button>
         </header>
         <div class="content">
             <section class="card">
-                <h3>Politica de seguridad</h3>
+                <h3>Política de seguridad</h3>
                 <p>Ajusta reglas de acceso para todos los administradores.</p>
-                <div class="field"><label>Intentos maximos</label><input type="number" value="5"></div>
-                <div class="field"><label>Sesion expira en</label><select><option>30 minutos</option><option selected>60 minutos</option><option>120 minutos</option></select></div>
+                <div class="field"><label>Intentos máximos</label><input type="number" value="5"></div>
+                <div class="field"><label>Sesión expira en</label><select><option>30 minutos</option><option selected>60 minutos</option><option>120 minutos</option></select></div>
             </section>
             <section class="card">
                 <h3>Notificaciones</h3>
-                <p>Controla avisos por actividad administrativa critica.</p>
-                <div class="field"><label>Correo de alertas</label><input value="admin@resto.com"></div>
+                <p>Controla avisos por actividad administrativa crítica.</p>
+                <div class="field"><label>Correo de alertas</label><input value="admin@tconecta.com"></div>
                 <div class="field"><label>Canal principal</label><select><option selected>Email</option><option>SMS</option><option>Ambos</option></select></div>
             </section>
             <section class="card">
                 <h3>Respaldo de datos</h3>
                 <p>Frecuencia de backup para la plataforma administrativa.</p>
                 <div class="field"><label>Frecuencia</label><select><option>Diaria</option><option selected>Semanal</option><option>Mensual</option></select></div>
-                <div class="field"><label>Retencion</label><select><option>30 dias</option><option selected>90 dias</option><option>180 dias</option></select></div>
+                <div class="field"><label>Retención</label><select><option>30 días</option><option selected>90 días</option><option>180 días</option></select></div>
             </section>
             <section class="card">
                 <h3>Ambiente</h3>
-                <p>Define parametros de ejecucion del panel administrativo.</p>
-                <div class="field"><label>Zona horaria</label><select><option selected>America/Bogota</option><option>America/Lima</option><option>America/Santiago</option></select></div>
-                <div class="field"><label>Idioma</label><select><option selected>Espanol</option><option>English</option></select></div>
+                <p>Define parámetros de ejecución del panel administrativo.</p>
+                <div class="field"><label>Zona horaria</label><select><option selected>America/Guatemala</option><option>America/Bogota</option><option>America/Mexico_City</option></select></div>
+                <div class="field"><label>Idioma</label><select><option selected>Español</option><option>English</option></select></div>
             </section>
         </div>
         <div class="footer"></div>
