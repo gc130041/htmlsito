@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Flotilla | Tconecta</title>
+    <title>Panel de Alertas | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -31,65 +31,64 @@
     </aside>
 
     <main class="content">
-        <!-- El resto del contenido se mantiene igual -->
         <header class="header">
             <div>
-                <h2>Gestión de Flotilla (Buses)</h2>
-                <p>Administra unidades, placas y asignación a los diferentes sistemas.</p>
+                <h2>Panel de Alertas Operativas</h2>
+                <p>Publica incidentes, mantenimientos o avisos para los usuarios.</p>
             </div>
-            <button class="btn primary" id="newBtn"><i class="fas fa-plus"></i> Nuevo Bus</button>
+            <!-- Botón cambiado a primary -->
+            <button class="btn primary" id="newBtn"><i class="fas fa-bullhorn"></i> Nueva Alerta</button>
         </header>
         <section class="section">
             <div class="top">
-                <p style="font-size:13px;color:#6f6f78">Control centralizado del parque vehicular.</p>
+                <p style="font-size:13px;color:#6f6f78">Notificaciones del servicio en tiempo real.</p>
             </div>
             <section class="kpis">
-                <article class="kpi"><span>Total Buses</span><strong id="kpiTotal">0</strong></article>
-                <article class="kpi"><span>Transmetro</span><strong id="kpiTransmetro">0</strong></article>
-                <article class="kpi"><span>En Mantenimiento</span><strong id="kpiMantenimiento">0</strong></article>
+                <article class="kpi"><span>Total Alertas</span><strong id="kpiTotal">0</strong></article>
+                <article class="kpi"><span>Activas</span><strong id="kpiActivas">0</strong></article>
+                <article class="kpi"><span>Incidentes</span><strong id="kpiIncidentes">0</strong></article>
             </section>
             <div class="grid" id="grid"></div>
         </section>
     </main>
 </div>
-<!-- Scripts y modales sin alteración -->
 
-<!-- MODAL PARA NUEVO BUS -->
+<!-- MODAL PARA NUEVA ALERTA -->
 <div class="modal" id="modal">
   <div class="modal-card">
-    <h2 id="title" style="font-size:18px;margin-bottom:10px;">Registrar Bus</h2>
+    <h2 id="title" style="font-size:18px;margin-bottom:10px;">Crear Alerta</h2>
     
     <div class="field">
-        <label>Código del Bus (Ej. TM-101)</label>
-        <input id="fCode" type="text" placeholder="TM-101">
+        <label>Título de la Alerta</label>
+        <input id="fTitle" type="text" placeholder="Ej. Manifestación en Zona 1">
     </div>
     
     <div class="field">
-        <label>Placa Vehicular</label>
-        <input id="fPlate" type="text" placeholder="P-123ABC">
+        <label>Descripción</label>
+        <textarea id="fDesc" rows="3" placeholder="Detalle la situación..." style="width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font-size:13px; resize:vertical;"></textarea>
     </div>
     
     <div class="field">
-        <label>Tipo de Servicio</label>
-        <select id="fService">
-            <option value="TRANSMETRO">Transmetro</option>
-            <option value="TRANSURBANO">Transurbano</option>
-            <option value="TUBUS">TuBus</option>
+        <label>Tipo de Alerta</label>
+        <select id="fType">
+            <option value="INFO">Información (Info)</option>
+            <option value="INCIDENT">Incidente Operativo</option>
+            <option value="MAINTENANCE">Mantenimiento</option>
         </select>
     </div>
 
     <div class="field">
-        <label>Estado Operativo</label>
+        <label>Estado</label>
         <select id="fStatus">
-            <option value="ACTIVE">Activo</option>
-            <option value="MAINTENANCE">En mantenimiento</option>
-            <option value="INACTIVE">Inactivo</option>
+            <option value="ACTIVE">Activa</option>
+            <option value="RESOLVED">Resuelta</option>
         </select>
     </div>
 
     <div class="row">
         <button class="btn soft" id="cancelBtn">Cancelar</button>
-        <button class="btn primary" id="saveBtn">Guardar</button>
+        <!-- Botón cambiado a primary -->
+        <button class="btn primary" id="saveBtn">Publicar</button>
     </div>
   </div>
 </div>
@@ -97,11 +96,10 @@
 <div class="toast-zone" id="toastZone"></div>
 
 <script>
-// Mockup de datos
-const items =[
- {id: 1, busCode: 'TM-101', plateNumber: 'P-123ABC', serviceType: 'TRANSMETRO', status: 'ACTIVE'},
- {id: 2, busCode: 'TU-500', plateNumber: 'P-987XYZ', serviceType: 'TRANSURBANO', status: 'ACTIVE'},
- {id: 3, busCode: 'TB-012', plateNumber: 'P-456DEF', serviceType: 'TUBUS', status: 'MAINTENANCE'}
+const items = [
+ {id: 1, title: 'Manifestación en Zona 1', description: 'Retrasos considerables en la Línea 1 debido a bloqueos.', typeAlert: 'INCIDENT', status: 'ACTIVE'},
+ {id: 2, title: 'Mantenimiento de Torniquetes', description: 'Estación El Carmen operando parcialmente.', typeAlert: 'MAINTENANCE', status: 'ACTIVE'},
+ {id: 3, title: 'Horario Navideño', description: 'El servicio cerrará a las 20:00 hrs.', typeAlert: 'INFO', status: 'RESOLVED'}
 ];
 
 let editId = null;
@@ -109,21 +107,21 @@ const grid = document.getElementById('grid');
 const modal = document.getElementById('modal');
 const toastZone = document.getElementById('toastZone');
 const kpiTotal = document.getElementById('kpiTotal');
-const kpiTransmetro = document.getElementById('kpiTransmetro');
-const kpiMantenimiento = document.getElementById('kpiMantenimiento');
+const kpiActivas = document.getElementById('kpiActivas');
+const kpiIncidentes = document.getElementById('kpiIncidentes');
 
 function render(){
     grid.innerHTML = '';
     items.forEach(it => {
         const d = document.createElement('article');
         d.className = 'card';
-        let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko';
+        let badgeClass = it.status === 'ACTIVE' ? 'ko' : 'ok';
         
         d.innerHTML = `
-            <h3>${it.busCode}</h3>
-            <p style="margin-bottom: 4px;">Placa: <strong>${it.plateNumber}</strong></p>
-            <p>Servicio: ${it.serviceType}</p>
-            <span class='badge ${badgeClass}'>${it.status}</span>
+            <h3>${it.title}</h3>
+            <p style="margin: 6px 0;">${it.description}</p>
+            <p style="font-size: 11px;">Tipo: <strong>${it.typeAlert}</strong></p>
+            <span class='badge ${badgeClass}' style="margin-top:8px; display:inline-block;">${it.status}</span>
             <div class='actions'>
                 <button onclick='editItem(${it.id})'>Editar</button>
             </div>
@@ -135,8 +133,8 @@ function render(){
 
 function updateKpis(){
     kpiTotal.textContent = items.length;
-    kpiTransmetro.textContent = items.filter(i => i.serviceType === 'TRANSMETRO').length;
-    kpiMantenimiento.textContent = items.filter(i => i.status === 'MAINTENANCE').length;
+    kpiActivas.textContent = items.filter(i => i.status === 'ACTIVE').length;
+    kpiIncidentes.textContent = items.filter(i => i.typeAlert === 'INCIDENT').length;
 }
 
 function showToast(message, type){
@@ -153,10 +151,10 @@ function showToast(message, type){
 
 function openModal(item){
     modal.classList.add('open');
-    document.getElementById('title').textContent = item ? 'Editar Bus' : 'Registrar Bus';
-    document.getElementById('fCode').value = item ? item.busCode : '';
-    document.getElementById('fPlate').value = item ? item.plateNumber : '';
-    document.getElementById('fService').value = item ? item.serviceType : 'TRANSMETRO';
+    document.getElementById('title').textContent = item ? 'Editar Alerta' : 'Crear Alerta';
+    document.getElementById('fTitle').value = item ? item.title : '';
+    document.getElementById('fDesc').value = item ? item.description : '';
+    document.getElementById('fType').value = item ? item.typeAlert : 'INFO';
     document.getElementById('fStatus').value = item ? item.status : 'ACTIVE';
 }
 
@@ -169,26 +167,26 @@ document.getElementById('newBtn').onclick = () => { editId = null; openModal(); 
 document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
 
 document.getElementById('saveBtn').onclick = () => {
-    const busCode = document.getElementById('fCode').value.trim();
-    const plateNumber = document.getElementById('fPlate').value.trim();
-    const serviceType = document.getElementById('fService').value;
+    const title = document.getElementById('fTitle').value.trim();
+    const description = document.getElementById('fDesc').value.trim();
+    const typeAlert = document.getElementById('fType').value;
     const status = document.getElementById('fStatus').value;
     
-    if(!busCode || !plateNumber){
-        showToast('Completa código y placa', 'warn');
+    if(!title || !description){
+        showToast('Completa título y descripción', 'warn');
         return;
     }
     
     if(editId){
         const it = items.find(x => x.id === editId);
-        it.busCode = busCode;
-        it.plateNumber = plateNumber;
-        it.serviceType = serviceType;
+        it.title = title;
+        it.description = description;
+        it.typeAlert = typeAlert;
         it.status = status;
-        showToast('Bus actualizado exitosamente', 'ok');
+        showToast('Alerta actualizada', 'ok');
     } else {
-        items.unshift({id: Date.now(), busCode, plateNumber, serviceType, status});
-        showToast('Bus registrado exitosamente', 'ok');
+        items.unshift({id: Date.now(), title, description, typeAlert, status});
+        showToast('Alerta publicada', 'ok');
     }
     modal.classList.remove('open');
     render();

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Flotilla | Tconecta</title>
+    <title>CRUD Rutas | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -18,68 +18,71 @@
         </div>
         <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
-            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
-            <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
-            <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
-            <a class="active" href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
-            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
-        </nav>
+    <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+    <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+    <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+    <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+    <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
+    <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+    <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+    <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
+</nav>
         <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
     </aside>
 
     <main class="content">
         <header class="header">
             <div>
-                <h2>Gestión de Flotilla (Buses)</h2>
-                <p>Administra unidades, placas y asignación a los diferentes sistemas.</p>
+                <h2>Gestión de Rutas</h2>
+                <p>Configura trayectos, asigna el tipo de servicio y gestiona el estado operativo.</p>
             </div>
-            <!-- Modificado a btn primary para tener color azul -->
-            <button class="btn primary" id="newBtn"><i class="fas fa-plus"></i> Nuevo Bus</button>
+            <button class="btn primary" id="newBtn"><i class="fas fa-plus"></i> Nueva Ruta</button>
         </header>
         <section class="section">
             <div class="top">
-                <p style="font-size:13px;color:#6f6f78">Control centralizado del parque vehicular.</p>
+                <p style="font-size:13px;color:#6f6f78">Control de líneas de transporte.</p>
             </div>
             <section class="kpis">
-                <article class="kpi"><span>Total Buses</span><strong id="kpiTotal">0</strong></article>
-                <article class="kpi"><span>Transmetro</span><strong id="kpiTransmetro">0</strong></article>
-                <article class="kpi"><span>En Mantenimiento</span><strong id="kpiMantenimiento">0</strong></article>
+                <article class="kpi"><span>Total Rutas</span><strong id="kpiTotal">0</strong></article>
+                <article class="kpi"><span>Líneas Express</span><strong id="kpiExpress">0</strong></article>
+                <article class="kpi"><span>Inactivas/Cerradas</span><strong id="kpiCerradas">0</strong></article>
             </section>
             <div class="grid" id="grid"></div>
         </section>
     </main>
 </div>
 
-<!-- MODAL PARA NUEVO BUS -->
+<!-- MODAL PARA NUEVA RUTA -->
 <div class="modal" id="modal">
   <div class="modal-card">
-    <h2 id="title" style="font-size:18px;margin-bottom:10px;">Registrar Bus</h2>
+    <h2 id="title" style="font-size:18px;margin-bottom:10px;">Registrar Ruta</h2>
     
     <div class="field">
-        <label>Código del Bus (Ej. TM-101)</label>
-        <input id="fCode" type="text" placeholder="TM-101">
+        <label>Nombre de la Ruta</label>
+        <input id="fName" type="text" placeholder="Ej. Línea 13 Centro Cívico">
     </div>
     
     <div class="field">
-        <label>Placa Vehicular</label>
-        <input id="fPlate" type="text" placeholder="P-123ABC">
+        <label>Código de Ruta</label>
+        <input id="fCode" type="text" placeholder="Ej. L13">
     </div>
     
     <div class="field">
-        <label>Tipo de Servicio</label>
-        <select id="fService">
-            <option value="TRANSMETRO">Transmetro</option>
-            <option value="TRANSURBANO">Transurbano</option>
-            <option value="TUBUS">TuBus</option>
+        <label>Tipo de Ruta</label>
+        <select id="fType">
+            <option value="CENTRALES">Centrales</option>
+            <option value="EXPRESS">Express</option>
+            <option value="RELEVOS">Relevos</option>
         </select>
     </div>
 
     <div class="field">
         <label>Estado Operativo</label>
         <select id="fStatus">
-            <option value="ACTIVE">Activo</option>
+            <option value="ACTIVE">Activa</option>
+            <option value="INACTIVE">Inactiva</option>
             <option value="MAINTENANCE">En mantenimiento</option>
-            <option value="INACTIVE">Inactivo</option>
+            <option value="CLOSED">Cerrada</option>
         </select>
     </div>
 
@@ -93,11 +96,11 @@
 <div class="toast-zone" id="toastZone"></div>
 
 <script>
-// Mockup de datos
-const items =[
- {id: 1, busCode: 'TM-101', plateNumber: 'P-123ABC', serviceType: 'TRANSMETRO', status: 'ACTIVE'},
- {id: 2, busCode: 'TU-500', plateNumber: 'P-987XYZ', serviceType: 'TRANSURBANO', status: 'ACTIVE'},
- {id: 3, busCode: 'TB-012', plateNumber: 'P-456DEF', serviceType: 'TUBUS', status: 'MAINTENANCE'}
+// Mockup de datos basados en server-admin/src/roads/road.model.js
+const items = [
+ {id: 1, name: 'Línea 13 Centro Cívico', routeCode: 'L13', typeRoad: 'CENTRALES', status: 'ACTIVE'},
+ {id: 2, name: 'Línea 12 Sur', routeCode: 'L12', typeRoad: 'EXPRESS', status: 'ACTIVE'},
+ {id: 3, name: 'Línea 7 Periférico', routeCode: 'L7', typeRoad: 'RELEVOS', status: 'CLOSED'}
 ];
 
 let editId = null;
@@ -105,8 +108,8 @@ const grid = document.getElementById('grid');
 const modal = document.getElementById('modal');
 const toastZone = document.getElementById('toastZone');
 const kpiTotal = document.getElementById('kpiTotal');
-const kpiTransmetro = document.getElementById('kpiTransmetro');
-const kpiMantenimiento = document.getElementById('kpiMantenimiento');
+const kpiExpress = document.getElementById('kpiExpress');
+const kpiCerradas = document.getElementById('kpiCerradas');
 
 function render(){
     grid.innerHTML = '';
@@ -116,9 +119,8 @@ function render(){
         let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko';
         
         d.innerHTML = `
-            <h3>${it.busCode}</h3>
-            <p style="margin-bottom: 4px;">Placa: <strong>${it.plateNumber}</strong></p>
-            <p>Servicio: ${it.serviceType}</p>
+            <h3>${it.name} <small style="color:#777">(${it.routeCode})</small></h3>
+            <p>Tipo: <strong>${it.typeRoad}</strong></p>
             <span class='badge ${badgeClass}'>${it.status}</span>
             <div class='actions'>
                 <button onclick='editItem(${it.id})'>Editar</button>
@@ -131,8 +133,8 @@ function render(){
 
 function updateKpis(){
     kpiTotal.textContent = items.length;
-    kpiTransmetro.textContent = items.filter(i => i.serviceType === 'TRANSMETRO').length;
-    kpiMantenimiento.textContent = items.filter(i => i.status === 'MAINTENANCE').length;
+    kpiExpress.textContent = items.filter(i => i.typeRoad === 'EXPRESS').length;
+    kpiCerradas.textContent = items.filter(i => i.status === 'CLOSED' || i.status === 'INACTIVE').length;
 }
 
 function showToast(message, type){
@@ -149,10 +151,10 @@ function showToast(message, type){
 
 function openModal(item){
     modal.classList.add('open');
-    document.getElementById('title').textContent = item ? 'Editar Bus' : 'Registrar Bus';
-    document.getElementById('fCode').value = item ? item.busCode : '';
-    document.getElementById('fPlate').value = item ? item.plateNumber : '';
-    document.getElementById('fService').value = item ? item.serviceType : 'TRANSMETRO';
+    document.getElementById('title').textContent = item ? 'Editar Ruta' : 'Registrar Ruta';
+    document.getElementById('fName').value = item ? item.name : '';
+    document.getElementById('fCode').value = item ? item.routeCode : '';
+    document.getElementById('fType').value = item ? item.typeRoad : 'CENTRALES';
     document.getElementById('fStatus').value = item ? item.status : 'ACTIVE';
 }
 
@@ -165,26 +167,26 @@ document.getElementById('newBtn').onclick = () => { editId = null; openModal(); 
 document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
 
 document.getElementById('saveBtn').onclick = () => {
-    const busCode = document.getElementById('fCode').value.trim();
-    const plateNumber = document.getElementById('fPlate').value.trim();
-    const serviceType = document.getElementById('fService').value;
+    const name = document.getElementById('fName').value.trim();
+    const routeCode = document.getElementById('fCode').value.trim();
+    const typeRoad = document.getElementById('fType').value;
     const status = document.getElementById('fStatus').value;
     
-    if(!busCode || !plateNumber){
-        showToast('Completa código y placa', 'warn');
+    if(!name || !routeCode){
+        showToast('Completa nombre y código', 'warn');
         return;
     }
     
     if(editId){
         const it = items.find(x => x.id === editId);
-        it.busCode = busCode;
-        it.plateNumber = plateNumber;
-        it.serviceType = serviceType;
+        it.name = name;
+        it.routeCode = routeCode;
+        it.typeRoad = typeRoad;
         it.status = status;
-        showToast('Bus actualizado exitosamente', 'ok');
+        showToast('Ruta actualizada', 'ok');
     } else {
-        items.unshift({id: Date.now(), busCode, plateNumber, serviceType, status});
-        showToast('Bus registrado exitosamente', 'ok');
+        items.unshift({id: Date.now(), name, routeCode, typeRoad, status});
+        showToast('Ruta registrada', 'ok');
     }
     modal.classList.remove('open');
     render();
