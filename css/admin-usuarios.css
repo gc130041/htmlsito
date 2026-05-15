@@ -113,13 +113,15 @@ tr:last-child td {
     gap: 8px;
 }
 
-.row-actions button {
-    border: 1px solid var(--line);
-    background: #fff;
-    border-radius: 8px;
-    padding: 6px 8px;
-    cursor: pointer;
-    transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+.actions button, .row-actions button {
+    border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 10px; font-weight: 500; cursor: pointer; color: #333;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+.actions button:hover, .row-actions button:hover {
+    background: #f0f7ff; border-color: #cce4ff; color: var(--accent-blue); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 75, 147, 0.12);
+}
+.actions button:active, .row-actions button:active {
+    transform: translateY(1px) scale(0.98); box-shadow: none;
 }
 
 /* Cambiado a tonalidades azules */

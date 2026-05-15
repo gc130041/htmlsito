@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Administrador | Tconecta</title>
+    <title>Dashboard | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -13,10 +13,8 @@
     <div class="shell">
         <aside class="sidebar">
             <div class="brand">
-                <i class="fas fa-bus-alt"></i>
-                <h1>TCONECTA<br>ADMIN</h1>
+                <img src="../img/logo.png" alt="Tconecta Logo">
             </div>
-
             <p class="menu-title">Panel Operativo</p>
             <nav class="nav-links">
                 <a class="active" href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
@@ -28,7 +26,6 @@
                 <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
                 <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
             </nav>
-
             <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
         </aside>
 
@@ -45,48 +42,33 @@
             </header>
 
             <section class="stats">
-                <article class="stat-card">
-                    <span>Estaciones Activas</span>
-                    <strong>124</strong>
-                </article>
-                <article class="stat-card">
-                    <span>Rutas Operativas</span>
-                    <strong>18</strong>
-                </article>
-                <article class="stat-card">
-                    <span>Buses en Servicio</span>
-                    <strong>342</strong>
-                </article>
-                <article class="stat-card">
-                    <span>Alertas Abiertas</span>
-                    <strong>3</strong>
-                </article>
+                <article class="stat-card"><span>Estaciones Activas</span><strong>124</strong></article>
+                <article class="stat-card"><span>Rutas Operativas</span><strong>18</strong></article>
+                <article class="stat-card"><span>Buses en Servicio</span><strong>342</strong></article>
+                <article class="stat-card"><span>Alertas Abiertas</span><strong>3</strong></article>
             </section>
 
             <section class="views">
                 <article class="view-card">
-                    <i class="fas fa-map-marker-alt" style="color: var(--accent-blue);"></i>
+                    <i class="fas fa-map-marker-alt"></i>
                     <h3>Gestión de Estaciones</h3>
                     <p>Administra la ubicación, tipo y estado de todas las paradas.</p>
                     <a href="admin-estaciones.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
-
                 <article class="view-card">
-                    <i class="fas fa-route" style="color: var(--accent-blue);"></i>
+                    <i class="fas fa-route"></i>
                     <h3>Gestión de Rutas</h3>
                     <p>Configura trayectos, asigna estaciones y define el tipo de servicio.</p>
                     <a href="admin-rutas.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
-
                 <article class="view-card">
-                    <i class="fas fa-bus" style="color: var(--accent-blue);"></i>
+                    <i class="fas fa-bus"></i>
                     <h3>Control de Flotilla (Buses)</h3>
                     <p>Registra unidades, placas y vincula cada bus a las líneas operativas.</p>
                     <a href="admin-buses.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>
                 </article>
-
                 <article class="view-card">
-                    <i class="fas fa-exclamation-triangle" style="color: var(--accent-blue);"></i>
+                    <i class="fas fa-exclamation-triangle"></i>
                     <h3>Panel de Alertas</h3>
                     <p>Publica incidentes, mantenimientos o bloqueos en tiempo real.</p>
                     <a href="admin-alertas.html">Ir a la vista <i class="fas fa-arrow-right"></i></a>

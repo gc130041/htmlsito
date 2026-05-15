@@ -13,20 +13,19 @@
 <div class="shell">
     <aside class="sidebar">
         <div class="brand">
-            <i class="fas fa-bus-alt"></i>
-            <h1>TCONECTA<br>ADMIN</h1>
+            <img src="../img/logo.png" alt="Tconecta Logo">
         </div>
         <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
-    <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
-    <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
-    <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
-    <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
-    <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
-    <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
-    <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
-    <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
-</nav>
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+            <a class="active" href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+            <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
+            <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+            <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
+        </nav>
         <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
     </aside>
 
@@ -39,9 +38,7 @@
             <button class="btn primary" id="newBtn"><i class="fas fa-plus"></i> Nueva Ruta</button>
         </header>
         <section class="section">
-            <div class="top">
-                <p style="font-size:13px;color:#6f6f78">Control de líneas de transporte.</p>
-            </div>
+            <div class="top"><p style="font-size:13px;color:#6f6f78">Control de líneas de transporte.</p></div>
             <section class="kpis">
                 <article class="kpi"><span>Total Rutas</span><strong id="kpiTotal">0</strong></article>
                 <article class="kpi"><span>Líneas Express</span><strong id="kpiExpress">0</strong></article>
@@ -52,148 +49,29 @@
     </main>
 </div>
 
-<!-- MODAL PARA NUEVA RUTA -->
 <div class="modal" id="modal">
   <div class="modal-card">
     <h2 id="title" style="font-size:18px;margin-bottom:10px;">Registrar Ruta</h2>
-    
-    <div class="field">
-        <label>Nombre de la Ruta</label>
-        <input id="fName" type="text" placeholder="Ej. Línea 13 Centro Cívico">
-    </div>
-    
-    <div class="field">
-        <label>Código de Ruta</label>
-        <input id="fCode" type="text" placeholder="Ej. L13">
-    </div>
-    
-    <div class="field">
-        <label>Tipo de Ruta</label>
-        <select id="fType">
-            <option value="CENTRALES">Centrales</option>
-            <option value="EXPRESS">Express</option>
-            <option value="RELEVOS">Relevos</option>
-        </select>
-    </div>
-
-    <div class="field">
-        <label>Estado Operativo</label>
-        <select id="fStatus">
-            <option value="ACTIVE">Activa</option>
-            <option value="INACTIVE">Inactiva</option>
-            <option value="MAINTENANCE">En mantenimiento</option>
-            <option value="CLOSED">Cerrada</option>
-        </select>
-    </div>
-
-    <div class="row">
-        <button class="btn soft" id="cancelBtn">Cancelar</button>
-        <button class="btn primary" id="saveBtn">Guardar</button>
-    </div>
+    <div class="field"><label>Nombre de la Ruta</label><input id="fName" type="text" placeholder="Ej. Línea 13 Centro Cívico"></div>
+    <div class="field"><label>Código de Ruta</label><input id="fCode" type="text" placeholder="Ej. L13"></div>
+    <div class="field"><label>Tipo de Ruta</label><select id="fType"><option value="CENTRALES">Centrales</option><option value="EXPRESS">Express</option><option value="RELEVOS">Relevos</option></select></div>
+    <div class="field"><label>Estado Operativo</label><select id="fStatus"><option value="ACTIVE">Activa</option><option value="INACTIVE">Inactiva</option><option value="MAINTENANCE">En mantenimiento</option><option value="CLOSED">Cerrada</option></select></div>
+    <div class="row"><button class="btn soft" id="cancelBtn">Cancelar</button><button class="btn primary" id="saveBtn">Guardar</button></div>
   </div>
 </div>
-
 <div class="toast-zone" id="toastZone"></div>
 
 <script>
-// Mockup de datos basados en server-admin/src/roads/road.model.js
-const items = [
- {id: 1, name: 'Línea 13 Centro Cívico', routeCode: 'L13', typeRoad: 'CENTRALES', status: 'ACTIVE'},
- {id: 2, name: 'Línea 12 Sur', routeCode: 'L12', typeRoad: 'EXPRESS', status: 'ACTIVE'},
- {id: 3, name: 'Línea 7 Periférico', routeCode: 'L7', typeRoad: 'RELEVOS', status: 'CLOSED'}
-];
-
-let editId = null;
-const grid = document.getElementById('grid');
-const modal = document.getElementById('modal');
-const toastZone = document.getElementById('toastZone');
-const kpiTotal = document.getElementById('kpiTotal');
-const kpiExpress = document.getElementById('kpiExpress');
-const kpiCerradas = document.getElementById('kpiCerradas');
-
-function render(){
-    grid.innerHTML = '';
-    items.forEach(it => {
-        const d = document.createElement('article');
-        d.className = 'card';
-        let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko';
-        
-        d.innerHTML = `
-            <h3>${it.name} <small style="color:#777">(${it.routeCode})</small></h3>
-            <p>Tipo: <strong>${it.typeRoad}</strong></p>
-            <span class='badge ${badgeClass}'>${it.status}</span>
-            <div class='actions'>
-                <button onclick='editItem(${it.id})'>Editar</button>
-            </div>
-        `;
-        grid.appendChild(d);
-    });
-    updateKpis();
-}
-
-function updateKpis(){
-    kpiTotal.textContent = items.length;
-    kpiExpress.textContent = items.filter(i => i.typeRoad === 'EXPRESS').length;
-    kpiCerradas.textContent = items.filter(i => i.status === 'CLOSED' || i.status === 'INACTIVE').length;
-}
-
-function showToast(message, type){
-    const t = document.createElement('div');
-    t.className = `toast ${type || ''}`.trim();
-    t.textContent = message;
-    toastZone.appendChild(t);
-    requestAnimationFrame(() => t.classList.add('show'));
-    setTimeout(() => {
-        t.classList.remove('show');
-        setTimeout(() => t.remove(), 250);
-    }, 2500);
-}
-
-function openModal(item){
-    modal.classList.add('open');
-    document.getElementById('title').textContent = item ? 'Editar Ruta' : 'Registrar Ruta';
-    document.getElementById('fName').value = item ? item.name : '';
-    document.getElementById('fCode').value = item ? item.routeCode : '';
-    document.getElementById('fType').value = item ? item.typeRoad : 'CENTRALES';
-    document.getElementById('fStatus').value = item ? item.status : 'ACTIVE';
-}
-
-function editItem(id){
-    editId = id;
-    openModal(items.find(x => x.id === id));
-}
-
-document.getElementById('newBtn').onclick = () => { editId = null; openModal(); };
-document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
-
-document.getElementById('saveBtn').onclick = () => {
-    const name = document.getElementById('fName').value.trim();
-    const routeCode = document.getElementById('fCode').value.trim();
-    const typeRoad = document.getElementById('fType').value;
-    const status = document.getElementById('fStatus').value;
-    
-    if(!name || !routeCode){
-        showToast('Completa nombre y código', 'warn');
-        return;
-    }
-    
-    if(editId){
-        const it = items.find(x => x.id === editId);
-        it.name = name;
-        it.routeCode = routeCode;
-        it.typeRoad = typeRoad;
-        it.status = status;
-        showToast('Ruta actualizada', 'ok');
-    } else {
-        items.unshift({id: Date.now(), name, routeCode, typeRoad, status});
-        showToast('Ruta registrada', 'ok');
-    }
-    modal.classList.remove('open');
-    render();
-};
-
-modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); };
-render();
+const items = [{id: 1, name: 'Línea 13 Centro Cívico', routeCode: 'L13', typeRoad: 'CENTRALES', status: 'ACTIVE'}];
+let editId = null; const grid = document.getElementById('grid'); const modal = document.getElementById('modal'); const toastZone = document.getElementById('toastZone'); const kpiTotal = document.getElementById('kpiTotal'); const kpiExpress = document.getElementById('kpiExpress'); const kpiCerradas = document.getElementById('kpiCerradas');
+function render(){ grid.innerHTML = ''; items.forEach(it => { const d = document.createElement('article'); d.className = 'card'; let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko'; d.innerHTML = `<h3>${it.name} <small style="color:#777">(${it.routeCode})</small></h3><p>Tipo: <strong>${it.typeRoad}</strong></p><span class='badge ${badgeClass}'>${it.status}</span><div class='actions'><button onclick='editItem(${it.id})'>Editar</button></div>`; grid.appendChild(d); }); updateKpis(); }
+function updateKpis(){ kpiTotal.textContent = items.length; kpiExpress.textContent = items.filter(i => i.typeRoad === 'EXPRESS').length; kpiCerradas.textContent = items.filter(i => i.status === 'CLOSED' || i.status === 'INACTIVE').length; }
+function showToast(message, type){ const t = document.createElement('div'); t.className = `toast ${type || ''}`.trim(); t.textContent = message; toastZone.appendChild(t); requestAnimationFrame(() => t.classList.add('show')); setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 250); }, 2500); }
+function openModal(item){ modal.classList.add('open'); document.getElementById('title').textContent = item ? 'Editar Ruta' : 'Registrar Ruta'; document.getElementById('fName').value = item ? item.name : ''; document.getElementById('fCode').value = item ? item.routeCode : ''; document.getElementById('fType').value = item ? item.typeRoad : 'CENTRALES'; document.getElementById('fStatus').value = item ? item.status : 'ACTIVE'; }
+function editItem(id){ editId = id; openModal(items.find(x => x.id === id)); }
+document.getElementById('newBtn').onclick = () => { editId = null; openModal(); }; document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
+document.getElementById('saveBtn').onclick = () => { const name = document.getElementById('fName').value.trim(); const routeCode = document.getElementById('fCode').value.trim(); const typeRoad = document.getElementById('fType').value; const status = document.getElementById('fStatus').value; if(!name || !routeCode){ showToast('Completa nombre y código', 'warn'); return; } if(editId){ const it = items.find(x => x.id === editId); it.name = name; it.routeCode = routeCode; it.typeRoad = typeRoad; it.status = status; showToast('Ruta actualizada', 'ok'); } else { items.unshift({id: Date.now(), name, routeCode, typeRoad, status}); showToast('Ruta registrada', 'ok'); } modal.classList.remove('open'); render(); };
+modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); }; render();
 </script>
 </body>
 </html>

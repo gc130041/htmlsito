@@ -13,8 +13,7 @@
 <div class="shell">
     <aside class="sidebar">
         <div class="brand">
-            <i class="fas fa-bus-alt"></i>
-            <h1>TCONECTA<br>ADMIN</h1>
+            <img src="../img/logo.png" alt="Tconecta Logo">
         </div>
         <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
@@ -36,13 +35,10 @@
                 <h2>Panel de Alertas Operativas</h2>
                 <p>Publica incidentes, mantenimientos o avisos para los usuarios.</p>
             </div>
-            <!-- Botón cambiado a primary -->
             <button class="btn primary" id="newBtn"><i class="fas fa-bullhorn"></i> Nueva Alerta</button>
         </header>
         <section class="section">
-            <div class="top">
-                <p style="font-size:13px;color:#6f6f78">Notificaciones del servicio en tiempo real.</p>
-            </div>
+            <div class="top"><p style="font-size:13px;color:#6f6f78">Notificaciones del servicio en tiempo real.</p></div>
             <section class="kpis">
                 <article class="kpi"><span>Total Alertas</span><strong id="kpiTotal">0</strong></article>
                 <article class="kpi"><span>Activas</span><strong id="kpiActivas">0</strong></article>
@@ -53,147 +49,29 @@
     </main>
 </div>
 
-<!-- MODAL PARA NUEVA ALERTA -->
 <div class="modal" id="modal">
   <div class="modal-card">
     <h2 id="title" style="font-size:18px;margin-bottom:10px;">Crear Alerta</h2>
-    
-    <div class="field">
-        <label>Título de la Alerta</label>
-        <input id="fTitle" type="text" placeholder="Ej. Manifestación en Zona 1">
-    </div>
-    
-    <div class="field">
-        <label>Descripción</label>
-        <textarea id="fDesc" rows="3" placeholder="Detalle la situación..." style="width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font-size:13px; resize:vertical;"></textarea>
-    </div>
-    
-    <div class="field">
-        <label>Tipo de Alerta</label>
-        <select id="fType">
-            <option value="INFO">Información (Info)</option>
-            <option value="INCIDENT">Incidente Operativo</option>
-            <option value="MAINTENANCE">Mantenimiento</option>
-        </select>
-    </div>
-
-    <div class="field">
-        <label>Estado</label>
-        <select id="fStatus">
-            <option value="ACTIVE">Activa</option>
-            <option value="RESOLVED">Resuelta</option>
-        </select>
-    </div>
-
-    <div class="row">
-        <button class="btn soft" id="cancelBtn">Cancelar</button>
-        <!-- Botón cambiado a primary -->
-        <button class="btn primary" id="saveBtn">Publicar</button>
-    </div>
+    <div class="field"><label>Título de la Alerta</label><input id="fTitle" type="text" placeholder="Ej. Manifestación en Zona 1"></div>
+    <div class="field"><label>Descripción</label><textarea id="fDesc" rows="3" placeholder="Detalle la situación..." style="width:100%; border:1px solid var(--line); border-radius:10px; padding:10px; font-size:13px; resize:vertical;"></textarea></div>
+    <div class="field"><label>Tipo de Alerta</label><select id="fType"><option value="INFO">Información (Info)</option><option value="INCIDENT">Incidente Operativo</option><option value="MAINTENANCE">Mantenimiento</option></select></div>
+    <div class="field"><label>Estado</label><select id="fStatus"><option value="ACTIVE">Activa</option><option value="RESOLVED">Resuelta</option></select></div>
+    <div class="row"><button class="btn soft" id="cancelBtn">Cancelar</button><button class="btn primary" id="saveBtn">Publicar</button></div>
   </div>
 </div>
-
 <div class="toast-zone" id="toastZone"></div>
 
 <script>
-const items = [
- {id: 1, title: 'Manifestación en Zona 1', description: 'Retrasos considerables en la Línea 1 debido a bloqueos.', typeAlert: 'INCIDENT', status: 'ACTIVE'},
- {id: 2, title: 'Mantenimiento de Torniquetes', description: 'Estación El Carmen operando parcialmente.', typeAlert: 'MAINTENANCE', status: 'ACTIVE'},
- {id: 3, title: 'Horario Navideño', description: 'El servicio cerrará a las 20:00 hrs.', typeAlert: 'INFO', status: 'RESOLVED'}
-];
-
-let editId = null;
-const grid = document.getElementById('grid');
-const modal = document.getElementById('modal');
-const toastZone = document.getElementById('toastZone');
-const kpiTotal = document.getElementById('kpiTotal');
-const kpiActivas = document.getElementById('kpiActivas');
-const kpiIncidentes = document.getElementById('kpiIncidentes');
-
-function render(){
-    grid.innerHTML = '';
-    items.forEach(it => {
-        const d = document.createElement('article');
-        d.className = 'card';
-        let badgeClass = it.status === 'ACTIVE' ? 'ko' : 'ok';
-        
-        d.innerHTML = `
-            <h3>${it.title}</h3>
-            <p style="margin: 6px 0;">${it.description}</p>
-            <p style="font-size: 11px;">Tipo: <strong>${it.typeAlert}</strong></p>
-            <span class='badge ${badgeClass}' style="margin-top:8px; display:inline-block;">${it.status}</span>
-            <div class='actions'>
-                <button onclick='editItem(${it.id})'>Editar</button>
-            </div>
-        `;
-        grid.appendChild(d);
-    });
-    updateKpis();
-}
-
-function updateKpis(){
-    kpiTotal.textContent = items.length;
-    kpiActivas.textContent = items.filter(i => i.status === 'ACTIVE').length;
-    kpiIncidentes.textContent = items.filter(i => i.typeAlert === 'INCIDENT').length;
-}
-
-function showToast(message, type){
-    const t = document.createElement('div');
-    t.className = `toast ${type || ''}`.trim();
-    t.textContent = message;
-    toastZone.appendChild(t);
-    requestAnimationFrame(() => t.classList.add('show'));
-    setTimeout(() => {
-        t.classList.remove('show');
-        setTimeout(() => t.remove(), 250);
-    }, 2500);
-}
-
-function openModal(item){
-    modal.classList.add('open');
-    document.getElementById('title').textContent = item ? 'Editar Alerta' : 'Crear Alerta';
-    document.getElementById('fTitle').value = item ? item.title : '';
-    document.getElementById('fDesc').value = item ? item.description : '';
-    document.getElementById('fType').value = item ? item.typeAlert : 'INFO';
-    document.getElementById('fStatus').value = item ? item.status : 'ACTIVE';
-}
-
-function editItem(id){
-    editId = id;
-    openModal(items.find(x => x.id === id));
-}
-
-document.getElementById('newBtn').onclick = () => { editId = null; openModal(); };
-document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
-
-document.getElementById('saveBtn').onclick = () => {
-    const title = document.getElementById('fTitle').value.trim();
-    const description = document.getElementById('fDesc').value.trim();
-    const typeAlert = document.getElementById('fType').value;
-    const status = document.getElementById('fStatus').value;
-    
-    if(!title || !description){
-        showToast('Completa título y descripción', 'warn');
-        return;
-    }
-    
-    if(editId){
-        const it = items.find(x => x.id === editId);
-        it.title = title;
-        it.description = description;
-        it.typeAlert = typeAlert;
-        it.status = status;
-        showToast('Alerta actualizada', 'ok');
-    } else {
-        items.unshift({id: Date.now(), title, description, typeAlert, status});
-        showToast('Alerta publicada', 'ok');
-    }
-    modal.classList.remove('open');
-    render();
-};
-
-modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); };
-render();
+const items = [{id: 1, title: 'Manifestación en Zona 1', description: 'Retrasos considerables debido a bloqueos.', typeAlert: 'INCIDENT', status: 'ACTIVE'}];
+let editId = null; const grid = document.getElementById('grid'); const modal = document.getElementById('modal'); const toastZone = document.getElementById('toastZone'); const kpiTotal = document.getElementById('kpiTotal'); const kpiActivas = document.getElementById('kpiActivas'); const kpiIncidentes = document.getElementById('kpiIncidentes');
+function render(){ grid.innerHTML = ''; items.forEach(it => { const d = document.createElement('article'); d.className = 'card'; let badgeClass = it.status === 'ACTIVE' ? 'ko' : 'ok'; d.innerHTML = `<h3>${it.title}</h3><p style="margin: 6px 0;">${it.description}</p><p style="font-size: 11px;">Tipo: <strong>${it.typeAlert}</strong></p><span class='badge ${badgeClass}' style="margin-top:8px; display:inline-block;">${it.status}</span><div class='actions'><button onclick='editItem(${it.id})'>Editar</button></div>`; grid.appendChild(d); }); updateKpis(); }
+function updateKpis(){ kpiTotal.textContent = items.length; kpiActivas.textContent = items.filter(i => i.status === 'ACTIVE').length; kpiIncidentes.textContent = items.filter(i => i.typeAlert === 'INCIDENT').length; }
+function showToast(message, type){ const t = document.createElement('div'); t.className = `toast ${type || ''}`.trim(); t.textContent = message; toastZone.appendChild(t); requestAnimationFrame(() => t.classList.add('show')); setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 250); }, 2500); }
+function openModal(item){ modal.classList.add('open'); document.getElementById('title').textContent = item ? 'Editar Alerta' : 'Crear Alerta'; document.getElementById('fTitle').value = item ? item.title : ''; document.getElementById('fDesc').value = item ? item.description : ''; document.getElementById('fType').value = item ? item.typeAlert : 'INFO'; document.getElementById('fStatus').value = item ? item.status : 'ACTIVE'; }
+function editItem(id){ editId = id; openModal(items.find(x => x.id === id)); }
+document.getElementById('newBtn').onclick = () => { editId = null; openModal(); }; document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
+document.getElementById('saveBtn').onclick = () => { const title = document.getElementById('fTitle').value.trim(); const description = document.getElementById('fDesc').value.trim(); const typeAlert = document.getElementById('fType').value; const status = document.getElementById('fStatus').value; if(!title || !description){ showToast('Completa título y descripción', 'warn'); return; } if(editId){ const it = items.find(x => x.id === editId); it.title = title; it.description = description; it.typeAlert = typeAlert; it.status = status; showToast('Alerta actualizada', 'ok'); } else { items.unshift({id: Date.now(), title, description, typeAlert, status}); showToast('Alerta publicada', 'ok'); } modal.classList.remove('open'); render(); };
+modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); }; render();
 </script>
 </body>
 </html>

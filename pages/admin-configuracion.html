@@ -13,8 +13,7 @@
 <div class="shell">
     <aside class="sidebar">
         <div class="brand">
-            <i class="fas fa-bus-alt"></i>
-            <h1>TCONECTA<br>ADMIN</h1>
+            <img src="../img/logo.png" alt="Tconecta Logo">
         </div>
         <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
@@ -36,36 +35,14 @@
                 <h2>Configuración General</h2>
                 <p>Control de parámetros administrativos del sistema.</p>
             </div>
-            <!-- Botón cambiado a primary -->
             <button class="btn primary" onclick="alert('Configuración guardada')">Guardar cambios</button>
         </header>
         <div class="content">
             <section class="card">
                 <h3>Política de seguridad</h3>
-                <p>Ajusta reglas de acceso para todos los administradores.</p>
                 <div class="field"><label>Intentos máximos</label><input type="number" value="5"></div>
-                <div class="field"><label>Sesión expira en</label><select><option>30 minutos</option><option selected>60 minutos</option><option>120 minutos</option></select></div>
-            </section>
-            <section class="card">
-                <h3>Notificaciones</h3>
-                <p>Controla avisos por actividad administrativa crítica.</p>
-                <div class="field"><label>Correo de alertas</label><input value="admin@tconecta.com"></div>
-                <div class="field"><label>Canal principal</label><select><option selected>Email</option><option>SMS</option><option>Ambos</option></select></div>
-            </section>
-            <section class="card">
-                <h3>Respaldo de datos</h3>
-                <p>Frecuencia de backup para la plataforma administrativa.</p>
-                <div class="field"><label>Frecuencia</label><select><option>Diaria</option><option selected>Semanal</option><option>Mensual</option></select></div>
-                <div class="field"><label>Retención</label><select><option>30 días</option><option selected>90 días</option><option>180 días</option></select></div>
-            </section>
-            <section class="card">
-                <h3>Ambiente</h3>
-                <p>Define parámetros de ejecución del panel administrativo.</p>
-                <div class="field"><label>Zona horaria</label><select><option selected>America/Guatemala</option><option>America/Bogota</option><option>America/Mexico_City</option></select></div>
-                <div class="field"><label>Idioma</label><select><option selected>Español</option><option>English</option></select></div>
             </section>
         </div>
-        <div class="footer"></div>
     </main>
 </div>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Roles y Permisos | Tconecta</title>
+    <title>Roles y Permisos | Tconecta</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
@@ -13,39 +13,31 @@
 <div class="shell">
   <aside class="sidebar">
         <div class="brand">
-            <i class="fas fa-bus-alt"></i>
-            <h1>TCONECTA<br>ADMIN</h1>
+            <img src="../img/logo.png" alt="Tconecta Logo">
         </div>
         <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
-    <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
-    <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
-    <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
-    <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
-    <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
-    <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
-    <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
-    <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
-</nav>
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+            <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+            <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
+            <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+            <a class="active" href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
+        </nav>
         <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
   </aside>
 
   <main class="content">
     <header class="head">
-      <div>
-        <h2>CRUD de Roles y Permisos</h2>
-        <p>Define y controla permisos de cada perfil administrativo.</p>
-      </div>
+      <div><h2>CRUD de Roles y Permisos</h2><p>Define y controla permisos de cada perfil administrativo.</p></div>
       <button class="btn primary" id="newBtn">Nuevo rol</button>
     </header>
     <div class="body">
-      <div class="top">
-        <p style="font-size:13px;color:#6f6f78">Gestión centralizada de roles para administradores.</p>
-      </div>
+      <div class="top"><p style="font-size:13px;color:#6f6f78">Gestión centralizada de roles.</p></div>
       <section class="kpis">
         <article class="kpi"><span>Total roles</span><strong id="kpiTotal">0</strong></article>
-        <article class="kpi"><span>Roles críticos</span><strong id="kpiCriticos">0</strong></article>
-        <article class="kpi"><span>Roles operativos</span><strong id="kpiOperativos">0</strong></article>
       </section>
       <table>
         <thead><tr><th>Rol</th><th>Descripción</th><th>Acciones</th></tr></thead>
@@ -63,16 +55,6 @@
     <div class="row"><button class="btn light" id="cancelBtn">Cancelar</button><button class="btn primary" id="saveBtn">Guardar</button></div>
   </div>
 </div>
-
-<div class="modal" id="confirmModal">
-  <div class="card">
-    <h2 style="margin-bottom:10px;font-size:18px;">Eliminar rol</h2>
-    <p class="confirm-text">Este rol se eliminará de la lista administrativa. ¿Deseas continuar?</p>
-    <div class="row"><button class="btn light" id="confirmCancelBtn">Cancelar</button><button class="btn primary" id="confirmOkBtn">Eliminar</button></div>
-  </div>
-</div>
-
-<div class="toast-zone" id="toastZone"></div>
 
 <script>
 const rows=[

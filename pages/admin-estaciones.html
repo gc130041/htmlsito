@@ -13,20 +13,19 @@
 <div class="shell">
     <aside class="sidebar">
         <div class="brand">
-            <i class="fas fa-bus-alt"></i>
-            <h1>TCONECTA<br>ADMIN</h1>
+            <img src="../img/logo.png" alt="Tconecta Logo">
         </div>
         <p class="menu-title">Panel Operativo</p>
         <nav class="nav-links">
-    <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
-    <a href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
-    <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
-    <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
-    <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
-    <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
-    <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
-    <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
-</nav>
+            <a href="dashboard.html"><i class="fas fa-chart-pie"></i> Resumen</a>
+            <a class="active" href="admin-estaciones.html"><i class="fas fa-map-marker-alt"></i> Estaciones</a>
+            <a href="admin-rutas.html"><i class="fas fa-route"></i> Rutas</a>
+            <a href="admin-buses.html"><i class="fas fa-bus"></i> Flotilla (Buses)</a>
+            <a href="admin-alertas.html"><i class="fas fa-exclamation-triangle"></i> Alertas</a>
+            <a href="admin-usuarios.html"><i class="fas fa-user-shield"></i> Administradores</a>
+            <a href="admin-roles.html"><i class="fas fa-key"></i> Roles y permisos</a>
+            <a href="admin-configuracion.html"><i class="fas fa-sliders-h"></i> Configuración</a>
+        </nav>
         <a class="logout" href="../index.html"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
     </aside>
 
@@ -39,9 +38,7 @@
             <button class="btn primary" id="newBtn"><i class="fas fa-plus"></i> Nueva Estación</button>
         </header>
         <section class="section">
-            <div class="top">
-                <p style="font-size:13px;color:#6f6f78">Control de infraestructura de paradas.</p>
-            </div>
+            <div class="top"><p style="font-size:13px;color:#6f6f78">Control de infraestructura de paradas.</p></div>
             <section class="kpis">
                 <article class="kpi"><span>Total Estaciones</span><strong id="kpiTotal">0</strong></article>
                 <article class="kpi"><span>Activas</span><strong id="kpiActivas">0</strong></article>
@@ -56,145 +53,26 @@
 <div class="modal" id="modal">
   <div class="modal-card">
     <h2 id="title" style="font-size:18px;margin-bottom:10px;">Registrar Estación</h2>
-    
-    <div class="field">
-        <label>Nombre de la Estación</label>
-        <input id="fName" type="text" placeholder="Ej. Plaza La Reforma">
-    </div>
-    
-    <div class="field">
-        <label>Código de Estación</label>
-        <input id="fCode" type="text" placeholder="Ej. EST-01">
-    </div>
-    
-    <div class="field">
-        <label>Tipo de Estación</label>
-        <select id="fType">
-            <option value="CENTRALES">Centrales</option>
-            <option value="CARRIL LATERAL">Carril Lateral</option>
-            <option value="TRASBORDO">Trasbordo</option>
-            <option value="TERMINALES">Terminales</option>
-        </select>
-    </div>
-
-    <div class="field">
-        <label>Estado Operativo</label>
-        <select id="fStatus">
-            <option value="ACTIVE">Activa</option>
-            <option value="INACTIVE">Inactiva</option>
-            <option value="MAINTENANCE">En mantenimiento</option>
-            <option value="CLOSED">Cerrada</option>
-        </select>
-    </div>
-
-    <div class="row">
-        <button class="btn soft" id="cancelBtn">Cancelar</button>
-        <button class="btn primary" id="saveBtn">Guardar</button>
-    </div>
+    <div class="field"><label>Nombre de la Estación</label><input id="fName" type="text" placeholder="Ej. Plaza La Reforma"></div>
+    <div class="field"><label>Código de Estación</label><input id="fCode" type="text" placeholder="Ej. EST-01"></div>
+    <div class="field"><label>Tipo de Estación</label><select id="fType"><option value="CENTRALES">Centrales</option><option value="CARRIL LATERAL">Carril Lateral</option><option value="TRASBORDO">Trasbordo</option><option value="TERMINALES">Terminales</option></select></div>
+    <div class="field"><label>Estado Operativo</label><select id="fStatus"><option value="ACTIVE">Activa</option><option value="INACTIVE">Inactiva</option><option value="MAINTENANCE">En mantenimiento</option><option value="CLOSED">Cerrada</option></select></div>
+    <div class="row"><button class="btn soft" id="cancelBtn">Cancelar</button><button class="btn primary" id="saveBtn">Guardar</button></div>
   </div>
 </div>
-
 <div class="toast-zone" id="toastZone"></div>
 
 <script>
-// Mockup de datos basados en server-admin/src/stations/station.model.js
-const items = [
- {id: 1, name: 'Plaza La Reforma', stationCode: 'EST-01', typeStation: 'CENTRALES', status: 'ACTIVE'},
- {id: 2, name: 'Centra Sur', stationCode: 'EST-02', typeStation: 'TERMINALES', status: 'ACTIVE'},
- {id: 3, name: 'El Amate', stationCode: 'EST-03', typeStation: 'TRASBORDO', status: 'MAINTENANCE'}
-];
-
-let editId = null;
-const grid = document.getElementById('grid');
-const modal = document.getElementById('modal');
-const toastZone = document.getElementById('toastZone');
-const kpiTotal = document.getElementById('kpiTotal');
-const kpiActivas = document.getElementById('kpiActivas');
-const kpiMantenimiento = document.getElementById('kpiMantenimiento');
-
-function render(){
-    grid.innerHTML = '';
-    items.forEach(it => {
-        const d = document.createElement('article');
-        d.className = 'card';
-        let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko';
-        
-        d.innerHTML = `
-            <h3>${it.name} <small style="color:#777">(${it.stationCode})</small></h3>
-            <p>Tipo: <strong>${it.typeStation}</strong></p>
-            <span class='badge ${badgeClass}'>${it.status}</span>
-            <div class='actions'>
-                <button onclick='editItem(${it.id})'>Editar</button>
-            </div>
-        `;
-        grid.appendChild(d);
-    });
-    updateKpis();
-}
-
-function updateKpis(){
-    kpiTotal.textContent = items.length;
-    kpiActivas.textContent = items.filter(i => i.status === 'ACTIVE').length;
-    kpiMantenimiento.textContent = items.filter(i => i.status === 'MAINTENANCE').length;
-}
-
-function showToast(message, type){
-    const t = document.createElement('div');
-    t.className = `toast ${type || ''}`.trim();
-    t.textContent = message;
-    toastZone.appendChild(t);
-    requestAnimationFrame(() => t.classList.add('show'));
-    setTimeout(() => {
-        t.classList.remove('show');
-        setTimeout(() => t.remove(), 250);
-    }, 2500);
-}
-
-function openModal(item){
-    modal.classList.add('open');
-    document.getElementById('title').textContent = item ? 'Editar Estación' : 'Registrar Estación';
-    document.getElementById('fName').value = item ? item.name : '';
-    document.getElementById('fCode').value = item ? item.stationCode : '';
-    document.getElementById('fType').value = item ? item.typeStation : 'CENTRALES';
-    document.getElementById('fStatus').value = item ? item.status : 'ACTIVE';
-}
-
-function editItem(id){
-    editId = id;
-    openModal(items.find(x => x.id === id));
-}
-
-document.getElementById('newBtn').onclick = () => { editId = null; openModal(); };
-document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
-
-document.getElementById('saveBtn').onclick = () => {
-    const name = document.getElementById('fName').value.trim();
-    const stationCode = document.getElementById('fCode').value.trim();
-    const typeStation = document.getElementById('fType').value;
-    const status = document.getElementById('fStatus').value;
-    
-    if(!name || !stationCode){
-        showToast('Completa nombre y código', 'warn');
-        return;
-    }
-    
-    if(editId){
-        const it = items.find(x => x.id === editId);
-        it.name = name;
-        it.stationCode = stationCode;
-        it.typeStation = typeStation;
-        it.status = status;
-        showToast('Estación actualizada', 'ok');
-    } else {
-        items.unshift({id: Date.now(), name, stationCode, typeStation, status});
-        showToast('Estación registrada', 'ok');
-    }
-    modal.classList.remove('open');
-    render();
-};
-
-modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); };
-render();
+const items = [{id: 1, name: 'Plaza La Reforma', stationCode: 'EST-01', typeStation: 'CENTRALES', status: 'ACTIVE'}];
+let editId = null; const grid = document.getElementById('grid'); const modal = document.getElementById('modal'); const toastZone = document.getElementById('toastZone'); const kpiTotal = document.getElementById('kpiTotal'); const kpiActivas = document.getElementById('kpiActivas'); const kpiMantenimiento = document.getElementById('kpiMantenimiento');
+function render(){ grid.innerHTML = ''; items.forEach(it => { const d = document.createElement('article'); d.className = 'card'; let badgeClass = it.status === 'ACTIVE' ? 'ok' : 'ko'; d.innerHTML = `<h3>${it.name} <small style="color:#777">(${it.stationCode})</small></h3><p>Tipo: <strong>${it.typeStation}</strong></p><span class='badge ${badgeClass}'>${it.status}</span><div class='actions'><button onclick='editItem(${it.id})'>Editar</button></div>`; grid.appendChild(d); }); updateKpis(); }
+function updateKpis(){ kpiTotal.textContent = items.length; kpiActivas.textContent = items.filter(i => i.status === 'ACTIVE').length; kpiMantenimiento.textContent = items.filter(i => i.status === 'MAINTENANCE').length; }
+function showToast(message, type){ const t = document.createElement('div'); t.className = `toast ${type || ''}`.trim(); t.textContent = message; toastZone.appendChild(t); requestAnimationFrame(() => t.classList.add('show')); setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 250); }, 2500); }
+function openModal(item){ modal.classList.add('open'); document.getElementById('title').textContent = item ? 'Editar Estación' : 'Registrar Estación'; document.getElementById('fName').value = item ? item.name : ''; document.getElementById('fCode').value = item ? item.stationCode : ''; document.getElementById('fType').value = item ? item.typeStation : 'CENTRALES'; document.getElementById('fStatus').value = item ? item.status : 'ACTIVE'; }
+function editItem(id){ editId = id; openModal(items.find(x => x.id === id)); }
+document.getElementById('newBtn').onclick = () => { editId = null; openModal(); }; document.getElementById('cancelBtn').onclick = () => modal.classList.remove('open');
+document.getElementById('saveBtn').onclick = () => { const name = document.getElementById('fName').value.trim(); const stationCode = document.getElementById('fCode').value.trim(); const typeStation = document.getElementById('fType').value; const status = document.getElementById('fStatus').value; if(!name || !stationCode){ showToast('Completa nombre y código', 'warn'); return; } if(editId){ const it = items.find(x => x.id === editId); it.name = name; it.stationCode = stationCode; it.typeStation = typeStation; it.status = status; showToast('Estación actualizada', 'ok'); } else { items.unshift({id: Date.now(), name, stationCode, typeStation, status}); showToast('Estación registrada', 'ok'); } modal.classList.remove('open'); render(); };
+modal.onclick = (e) => { if(e.target === modal) modal.classList.remove('open'); }; render();
 </script>
 </body>
 </html>
