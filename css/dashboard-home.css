@@ -1,4 +1,6 @@
 .content { padding: 34px 34px 28px; }
+.user-banner { margin: -34px -34px 24px -34px; padding: 0 34px; }
+
 .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
 .topbar h2 { font-size: 28px; font-weight: 700; }
 .topbar p { color: var(--muted); font-size: 13px; margin-top: 4px; }
