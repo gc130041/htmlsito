@@ -7,39 +7,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../css/auth.css">
-<link rel="stylesheet" href="../css/recover.css">
+<link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-<div class="recover-card">
-<section class="panel panel-white">
-<div class="white-content">
-<span class="welcome-text">Recuperar acceso</span>
-<div class="logo-container">
-<img src="../img/logo.png" alt="Tconecta Logo" style="height: 45px;">
-<span>TCONECTA</span>
-</div>
-<p class="subtitle">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.</p>
-
-            <form action="#">
-                <div class="input-group">
-                    <i class="far fa-envelope"></i>
-                    <input type="email" placeholder="Correo electrónico" required>
-                </div>
-
-                <button type="submit" class="auth-btn action-btn">Enviar enlace</button>
-            </form>
-
-            <p class="back-link">Volver al inicio de sesión <a href="../index.html">Iniciar Sesión</a></p>
+<div class="login-card">
+    <div class="login-left">
+        <span class="welcome-text">Recuperar acceso</span>
+        
+        <!-- Contenedor del logo ajustado -->
+        <div class="logo-container" style="width: 100%; justify-content: center; margin-bottom: 20px;">
+            <img src="../img/logo.png" alt="Tconecta Logo" style="height: 55px; margin: 0 auto; display: block;">
         </div>
-    </section>
+        
+        <p class="subtitle" style="margin: 0 auto 35px;">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña.</p>
 
-    <section class="panel panel-brand" aria-hidden="true">
-        <div class="orange-content relative-content">
-            <i class="fas fa-key"></i>
-            <h2>RECUPERAR</h2>
-            <p>Tu operación no se detiene. Recupera acceso rápido y continúa gestionando la red de transporte sin perder tiempo.</p>
-        </div>
-    </section>
+        <form action="#">
+            <div class="input-group">
+                <i class="far fa-envelope"></i>
+                <input type="email" placeholder="Correo electrónico" required>
+            </div>
+
+            <button type="submit" class="sign-in-btn auth-btn">Enviar enlace</button>
+        </form>
+
+        <p class="signup-link">
+            Volver al inicio de sesión <a href="../index.html">Iniciar Sesión</a>
+        </p>
+    </div>
 </div>
 </body>
 </html>

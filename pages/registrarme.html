@@ -7,27 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../css/auth.css">
-<link rel="stylesheet" href="../css/register.css">
+<link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-<div class="register-card">
-<div class="register-left">
-<span class="welcome-text">Crear cuenta</span>
-<div class="logo-container">
-<img src="../img/logo.png" alt="Tconecta Logo" style="height: 45px;">
-<span>TCONECTA</span>
-</div>
-<p class="subtitle">Registra tu cuenta para gestionar rutas, estaciones e incidencias en un solo lugar.</p>
+<div class="login-card">
+    <div class="login-left">
+        <span class="welcome-text">Crear cuenta Admin</span>
+        
+        <!-- Contenedor del logo ajustado -->
+        <div class="logo-container" style="width: 100%; justify-content: center; margin-bottom: 20px;">
+            <img src="../img/logo.png" alt="Tconecta Logo" style="height: 55px; margin: 0 auto; display: block;">
+        </div>
+        
+        <p class="subtitle" style="margin: 0 auto 25px;">Registra tus credenciales autorizadas para administrar la red de transporte en un solo lugar.</p>
 
+        <!-- Formulario adaptado al RegisterRequestDto del Auth Server -->
         <form action="#">
             <div class="input-group">
-                <i class="far fa-building"></i>
-                <input type="text" placeholder="Entidad Operadora" required>
-            </div>
-
-            <div class="input-group">
-                <i class="far fa-user"></i>
-                <input type="text" placeholder="Nombre del administrador" required>
+                <i class="far fa-id-card"></i>
+                <input type="text" placeholder="CUI (13 dígitos)" required pattern="\d{13}" title="El CUI debe tener exactamente 13 dígitos">
             </div>
 
             <div class="input-group">
@@ -36,31 +34,16 @@
             </div>
 
             <div class="input-group">
-                <i class="fas fa-phone"></i>
-                <input type="tel" placeholder="Teléfono" required>
-            </div>
-
-            <div class="input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Crear contraseña" required>
+                <input type="password" placeholder="Contraseña (Mín. 6 caracteres)" required minlength="6">
             </div>
 
-            <button type="submit" class="auth-btn register-btn">Registrarme</button>
+            <button type="submit" class="sign-in-btn auth-btn">Registrarme</button>
         </form>
 
-        <p class="signin-link">
+        <p class="signup-link">
             ¿Ya tienes una cuenta? <a href="../index.html">Iniciar Sesión</a>
         </p>
-    </div>
-
-    <div class="panel-right register-right">
-        <div class="right-content relative-content">
-            <div class="right-logo">
-                <img src="../img/logo.png" alt="Tconecta Logo" style="height: 80px; margin-bottom: 20px;">
-                <span>TCONECTA ADMIN</span>
-            </div>
-            <p>Centraliza operaciones, mejora la experiencia de los usuarios y toma mejores decisiones con datos claros de tu red de transporte.</p>
-        </div>
     </div>
 </div>
 </body>
