@@ -71,14 +71,9 @@ body { min-height: 100vh; background: #f6f6fa; color: var(--ink); }
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* Capa oscura sobre la imagen para que el texto resalte */
-.user-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(31, 31, 36, 0.8) 0%, rgba(37, 147, 0, 0.8) 100%);
-    z-index: 1;
-}
+/* 
+  Se eliminó el bloque .user-banner::before que contenía el filtro/degradado
+*/
 
 /* Widget del Usuario */
 .user-profile-widget {
@@ -87,6 +82,8 @@ body { min-height: 100vh; background: #f6f6fa; color: var(--ink); }
     display: flex;
     align-items: center;
     gap: 12px;
+    /* Se oscureció un poco el fondo del widget en sí para garantizar que el texto blanco 
+       siga siendo legible sin importar qué tan clara sea la imagen original */
     background: rgba(30, 181, 0, 0.999);
     padding: 6px 6px 6px 16px;
     border-radius: 50px;
@@ -99,7 +96,7 @@ body { min-height: 100vh; background: #f6f6fa; color: var(--ink); }
 }
 
 .user-profile-widget:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(39, 179, 0, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
 }
 
